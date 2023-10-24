@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate-100 w-full min-h-screen fixed z-[-1]"></div>
+  <div class="w-full min-h-screen fixed z-[-1]" style="background-color: #f8f8f8;"></div>
 </template>
 
 <script>
