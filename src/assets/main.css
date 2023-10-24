@@ -8,6 +8,12 @@
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  /* color: hsla(160, 100%, 37%, 1); */
+  color: #162950; 
   transition: 0.4s;
+}
+
+@font-face {
+  font-family: tangyuan;
+  src:url("./fonts/猫啃网糖圆体0.12.ttf")
 }

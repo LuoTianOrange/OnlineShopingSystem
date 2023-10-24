@@ -7,14 +7,16 @@
         <component :is="Component" />
       </keep-alive>
     </router-view>
+    <FootNav></FootNav>
   </div>
 </template>
 
 <script>
+import FootNav from './components/FootNav.vue'
 import BackGround from './components/BackGround.vue'
 import HeadNav from './components/HeadNav.vue'
 export default {
-  components: { HeadNav, BackGround },
+  components: { HeadNav, BackGround, FootNav },
 
 }
 </script>
