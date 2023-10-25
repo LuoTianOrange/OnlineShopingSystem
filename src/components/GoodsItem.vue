@@ -1,11 +1,11 @@
 <template>
-    <!--货物展示-->
-    <router-link to="" v-for="(i, index) in image" :key="i.no" :data-index="index" class="photo-item font-1"
-        :style="{ width: itemw + 'px' }">
-        <img :src=i.href :alt=i.alt>
+    <!--单货物展示盒子-->
+    <div v-for="(i, index) in image.slice(img1,img2)" :key="i.no" :data-index="index" class="photo-item font-1"
+        :style="{ width: itemw + 'px' }" @click="gotogoodsinfo(i)">
+        <img :src=i.image :alt=i.alt>
         <span class="font-1">{{ i.name }}</span>
         <span class="font-2">¥{{ i.price }}</span>
-    </router-link>
+    </div>
 </template>
 
 <script>
@@ -18,13 +18,25 @@ export default {
         itemw: {
             type: Number,
             required: true,
+        },
+        img1:{
+            type: Number,
+            required: true,
+        },
+        img2:{
+            type: Number,
+            required: true,
         }
     },
-    // computed: {
-    //     itemw() {
-    //         return this.itemw;
-    //     },
-    // },
+    methods: {
+        gotogoodsinfo(img) {
+            this.$router.push(`/goodsinfo/${img.name}`)
+            //修改页面标题
+            document.title = `${img.name} - nanyano Online Store`
+            console.log(img);
+        },
+    }
+
 }
 </script>
 
