@@ -1,7 +1,7 @@
 <template>
     <!--单货物展示盒子-->
     <div v-for="(i, index) in image.slice(img1,img2)" :key="i.no" :data-index="index" class="photo-item font-1"
-        :style="{ width: itemw + 'px' }" @click="gotogoodsinfo(i)">
+        :style="{ width: itemw + 'px' }" @click="gotogoodsinfo(i, index)">
         <img :src=i.image :alt=i.alt>
         <span class="font-1">{{ i.name }}</span>
         <span class="font-2">¥{{ i.price }}</span>
@@ -29,11 +29,15 @@ export default {
         }
     },
     methods: {
-        gotogoodsinfo(img) {
+        gotogoodsinfo(img, item_index) {
             this.$router.push(`/goodsinfo/${img.name}`)
             //修改页面标题
             document.title = `${img.name} - nanyano Online Store`
+            // this.$store.commit( 'setId' ,(image))
+            // commit：设置点击的商品的索引到state中
+            this.$store.commit( 'setItemIndex' ,(item_index))
             console.log(img);
+            console.log(this.$store.state.itemIndex);
         },
     }
 

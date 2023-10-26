@@ -34,6 +34,7 @@
           <el-dropdown-menu>
             <el-dropdown-item>个人信息</el-dropdown-item>
             <el-dropdown-item>购物车</el-dropdown-item>
+            <el-dropdown-item style="color: tomato;">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>

@@ -1,11 +1,19 @@
 export default [
     {
         no: 1,
-        image: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/f36dcd5983ab749dd2c99a54eb52b694_1024x1024_2x_9498ee9b-2cb0-4025-ad8d-bbd5bf9f8d9d_360x.jpg?v=1697440341",
+        image: "https://nanyanostore.com/cdn/shop/files/f36dcd5983ab749dd2c99a54eb52b694_1024x1024_2x_9498ee9b-2cb0-4025-ad8d-bbd5bf9f8d9d_1024x1024@2x.jpg?v=1697440341",
         alt: "抱枕",
         name: "NACHONEKO抱き枕カバー",
         price: "12000",
-        images: []
+        images: [],
+        hasSize: 0,
+        size: [
+            {
+                No: 1,
+                Option: "L",
+            },
+        ], //商品的尺寸选择
+        amount: "100",
     },
     {
         no: 2,
@@ -43,28 +51,36 @@ export default [
         price: "5500"
     },
     {
-        no: 6,
-        image: "https://nanyanostore.com/cdn/shop/files/74d0518c9c86d4b743376f3e50e81275_1080x.png?v=1691129630",
-        alt: "杯子",
-        name: "NACHONEKOタンブラー",
-        price: "5500"
+        no: 7,
+        image: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/products/001-7-2_1024x1024@2x.jpg?v=1659430623",
+        alt: "衣服",
+        name: "OHA-NACHONEKO Tシャツ(白)",
+        price: "5760",
+        hasSize: 0,
+        size: [
+            {
+                No: 1,
+                Option: "L",
+            },
+        ], //商品的尺寸选择
+        amount: "100",
     },
     {
-        no: 6,
+        no: 8,
         image: "https://nanyanostore.com/cdn/shop/files/e94d9e1c137c50a691750722ee8dacbd_1080x.png?v=1687767322",
         alt: "杯子",
         name: "NACHONEKOタンブラー",
         price: "5500"
     },
     {
-        no: 6,
-        image: "https://nanyanostore.com/cdn/shop/files/e94d9e1c137c50a691750722ee8dacbd_1080x.png?v=1687767322",
-        alt: "杯子",
-        name: "NACHONEKOタンブラー",
-        price: "5500"
+        no: 9,
+        image: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/74d0518c9c86d4b743376f3e50e81275_1024x1024@2x.png?v=1691129630",
+        alt: "眼罩",
+        name: "NACHONEKOアイマスク",
+        price: "3200"
     },
     {
-        no: 6,
+        no: 10,
         image: "https://nanyanostore.com/cdn/shop/files/e94d9e1c137c50a691750722ee8dacbd_1080x.png?v=1687767322",
         alt: "杯子",
         name: "NACHONEKOタンブラー",

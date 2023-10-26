@@ -24,10 +24,16 @@ const store = createStore({
           amount: "100",
           images: []
         }
-      ]
+      ],
+      itemIndex: 0,
     }
   },
   mutations: {
+    setItemIndex(state, index) {
+      // commit：将传来的值赋给itemIndex
+      state.itemIndex = index
+    }
+    
   }
 })
 

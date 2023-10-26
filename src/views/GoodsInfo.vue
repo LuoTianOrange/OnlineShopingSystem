@@ -8,39 +8,42 @@
                 <div id="imgPre" class="relative overflow-hidden" @mouseleave="seeEnd">
 
                     <div ref="imgPre">
-                        <img :src="img" alt="商品图片" class="w-[452px]">
+                        <img :src="this.image[this.getNewIndex()].image" alt="商品图片" class="w-[452px]">
                     </div>
                     <div class="topMask" @mouseenter="seeBegin" @mousemove="move"></div>
                     <!--鼠标放大镜模块-->
                     <div ref="move" v-show="isShow" class="move" :style="cursorMask">
-                        <img :src="img" alt="商品图片" class="w-full">
+                        <img :src="this.image[this.getNewIndex()].image" alt="商品图片" class="w-full">
                     </div>
                 </div>
                 <div class="pt-[10px]">
                     <!--图片-->
-                    <img :src="this.image.image" alt=""
+                    <!-- commit：每次页面渲染时都会调用一次getNewIndex() -->
+                    <img :src="this.image[this.getNewIndex()].image" alt=""
                         class="w-[112px] h-[112px] object-cover mr-[10px] border-2 border-black">
                 </div>
             </div>
             <!--商品信息-->
             <div class="max-w-[550px] w-full pl-[40px] infobox">
-                <span class="goodname">{{ this.image.name }}</span>
-                <span class="goodprice">¥{{ this.image.price }}</span>
+                <span class="goodname">{{ this.image[this.getNewIndex()].name }}</span>
+                <span class="goodprice">¥{{ this.image[this.getNewIndex()].price }}</span>
                 <div class="infobox w-full pt-[50px]">
-                    <span class="mb-[5px]">尺寸</span>
-                    <select name="size" id="size" class="select-box w-[50%] mb-[5px]">
-                        <option value="L" v-for="a in goods" :key="a.size">L</option>
+                    <span class="mb-[5px]" v-if="this.image[this.getNewIndex()].hasSize == 0">尺寸</span>
+                    <select name="size" id="size" class="select-box w-[50%] mb-[5px]" v-if="this.image[this.getNewIndex()].hasSize == 0">
+                        <option value="L" v-for="a in this.image[this.getNewIndex()].size" :key="a.size"><!--没有成功渲染-->
+                            {{ this.image[this.getNewIndex()].size.Option }}</option>
                         <option value="L">L</option>
                     </select>
                     <span class="mb-[5px]">个数</span>
                     <div class="flex flex-row w-full">
-                        <input type="text" v-model="buynumber" id="" class="select-box w-[15%]" style="border-radius: 0 !important;">
+                        <input type="text" v-model="buynumber" id="" class="select-box w-[15%]"
+                            style="border-radius: 0 !important;">
                         <div class="w-[22px] h-[44px] bg-white">
                             <button class="fff w-[22px] h-[22px] plus" @click="addNumber()">+</button>
                             <button class="fff w-[22px] h-[22px] sub" @click="subNumber()">-</button>
                         </div>
                     </div>
-                    <button class="select-box w-[100%] mt-[30px]">添加购物车</button>
+                    <button class="select-box w-[100%] mt-[30px] joincar">添加购物车</button>
                     <button class="payment w-[100%] mt-[10px]">使用支付宝结算</button>
                 </div>
                 <div class="describe">
@@ -100,14 +103,25 @@ export default {
             return this.buynumber++
         },
         subNumber() {
-            var i = this.buynumber-1;
-            if(i < 0 ){
+            var i = this.buynumber - 1;
+            if (i < 0) {
                 i = 0
             }
             this.buynumber = i;
             return this.buynumber
+        },
+        getNewIndex() {
+            // commit：获取当前索引
+            
+            return this.$store.state.itemIndex === undefined ? 0 : this.$store.state.itemIndex;
+        },
+        resetBuynumber() {
+            this.buynumber = 1;
         }
-    }
+    },
+    destroyed() {
+        return this.buynumber = 1;
+    },
 }
 </script>
 
@@ -178,6 +192,7 @@ select {
     height: 44px;
     border-radius: 2px;
     padding: 10px;
+    background: #fff;
 }
 
 .goodname {
@@ -197,6 +212,7 @@ select {
     border-radius: 2px;
     padding: 10px;
     font-size: 1.1rem;
+    line-height:22px;
     color: #fff;
     font-weight: bold;
 }
@@ -218,5 +234,12 @@ select {
 .sub {
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
+}
+
+.joincar {
+    font-size: 1.1rem;
+    color: #797880;
+    font-weight: bold;
+    line-height:22px;
 }
 </style>
