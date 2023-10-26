@@ -8,31 +8,32 @@
                 <div id="imgPre" class="relative overflow-hidden" @mouseleave="seeEnd">
 
                     <div ref="imgPre">
-                        <img :src="this.image[this.getNewIndex()].image" alt="商品图片" class="w-[452px]">
+                        <img :src="CurrentImage.image" alt="商品图片" class="w-[452px]">
                     </div>
                     <div class="topMask" @mouseenter="seeBegin" @mousemove="move"></div>
                     <!--鼠标放大镜模块-->
                     <div ref="move" v-show="isShow" class="move" :style="cursorMask">
-                        <img :src="this.image[this.getNewIndex()].image" alt="商品图片" class="w-full">
+                        <img :src="CurrentImage.image" alt="商品图片" class="w-full">
                     </div>
                 </div>
                 <div class="pt-[10px]">
                     <!--图片-->
                     <!-- commit：每次页面渲染时都会调用一次getNewIndex() -->
-                    <img :src="this.image[this.getNewIndex()].image" alt=""
+                    <img :src="CurrentImage.image" alt=""
                         class="w-[112px] h-[112px] object-cover mr-[10px] border-2 border-black">
                 </div>
             </div>
             <!--商品信息-->
             <div class="max-w-[550px] w-full pl-[40px] infobox">
-                <span class="goodname">{{ this.image[this.getNewIndex()].name }}</span>
-                <span class="goodprice">¥{{ this.image[this.getNewIndex()].price }}</span>
+                <span class="goodname">{{ CurrentImage.name }}</span>
+                <span class="goodprice">¥{{ CurrentImage.price }}</span>
                 <div class="infobox w-full pt-[50px]">
-                    <span class="mb-[5px]" v-if="this.image[this.getNewIndex()].hasSize == 0">尺寸</span>
-                    <select name="size" id="size" class="select-box w-[50%] mb-[5px]" v-if="this.image[this.getNewIndex()].hasSize == 0">
-                        <option value="L" v-for="a in this.image[this.getNewIndex()].size" :key="a.size"><!--没有成功渲染-->
-                            {{ this.image[this.getNewIndex()].size.Option }}</option>
-                        <option value="L">L</option>
+                    <span class="mb-[5px]" v-if="CurrentImage.hasSize == 0">尺寸</span>
+                    <select name="size" id="size" class="select-box w-[50%] mb-[5px]"
+                        v-if="CurrentImage.hasSize == 0">
+                        <option v-for="a in CurrentImage.size" :value="a.Option" :key="a.No"><!--没有成功渲染-->
+                            {{ a.Option }}
+                        </option>
                     </select>
                     <span class="mb-[5px]">个数</span>
                     <div class="flex flex-row w-full">
@@ -43,7 +44,7 @@
                             <button class="fff w-[22px] h-[22px] sub" @click="subNumber()">-</button>
                         </div>
                     </div>
-                    <button class="select-box w-[100%] mt-[30px] joincar">添加购物车</button>
+                    <button class="select-box w-[100%] mt-[30px] joincar" @click="OpenSearchBox">添加购物车</button>
                     <button class="payment w-[100%] mt-[10px]">使用支付宝结算</button>
                 </div>
                 <div class="describe">
@@ -54,13 +55,16 @@
                 </div>
             </div>
         </div>
+        <!--添加购物车提示框-->
+        <AddSCPBox ref="SearchBoxRef"></AddSCPBox>
         <!--随机显示商品-->
         <div></div>
     </div>
 </template>
 
 <script>
-
+import AddSCPBox from "@/components/AddSCPBox.vue";
+import { ref } from 'vue';
 export default {
     data() {
         return {
@@ -80,10 +84,24 @@ export default {
             },
         }
     },
-    computed: {
-
+    components: {
+        AddSCPBox,
     },
-
+    computed: {
+        CurrentImage() {
+            return this.$store.state.image[this.$store.state.itemIndex ?? 0];
+        },
+    },
+    created() {
+        let currentItemIndex = 0
+        this.$store.state.image.some((v, i) => {
+            if (v.name == this.$route.params.no) {
+                currentItemIndex = i
+                return true
+            }
+        })
+        this.$store.commit("setItemIndex", currentItemIndex)
+    },
     methods: {
         seeEnd() {
             //鼠标移出原图区域时，清空相关信息
@@ -110,11 +128,6 @@ export default {
             this.buynumber = i;
             return this.buynumber
         },
-        getNewIndex() {
-            // commit：获取当前索引
-            
-            return this.$store.state.itemIndex === undefined ? 0 : this.$store.state.itemIndex;
-        },
         resetBuynumber() {
             this.buynumber = 1;
         }
@@ -122,6 +135,19 @@ export default {
     destroyed() {
         return this.buynumber = 1;
     },
+    setup() {
+        const SearchBoxRef = ref(null);
+
+        const OpenSearchBox = () => {
+            SearchBoxRef.value.OpenSearchBox()
+        }
+
+        return {
+            SearchBoxRef,
+            OpenSearchBox,
+        }
+    }
+
 }
 </script>
 
@@ -187,13 +213,6 @@ select {
     padding: 8px 28px 8px 15px;
 }
 
-.select-box {
-    border: 1px solid #000;
-    height: 44px;
-    border-radius: 2px;
-    padding: 10px;
-    background: #fff;
-}
 
 .goodname {
     font-size: 2.2rem;
@@ -212,7 +231,7 @@ select {
     border-radius: 2px;
     padding: 10px;
     font-size: 1.1rem;
-    line-height:22px;
+    line-height: 22px;
     color: #fff;
     font-weight: bold;
 }
@@ -226,20 +245,20 @@ select {
 }
 
 .plus {
-    border-top: 1px solid #000;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border-top: 1px solid #909090;
+    border-right: 1px solid #909090;
+    border-bottom: 1px solid #909090;
 }
 
 .sub {
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border-right: 1px solid #909090;
+    border-bottom: 1px solid #909090;
 }
 
 .joincar {
     font-size: 1.1rem;
     color: #797880;
     font-weight: bold;
-    line-height:22px;
+    line-height: 22px;
 }
 </style>

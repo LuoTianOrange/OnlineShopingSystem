@@ -2,7 +2,7 @@
   <div>
     <BackGround></BackGround>
     <HeadNav></HeadNav>
-    <router-view v-slot="{ Component }">
+    <router-view v-slot="{ Component }" :key="$route.fullPath">
       <keep-alive>
         <component :is="Component" />
       </keep-alive>

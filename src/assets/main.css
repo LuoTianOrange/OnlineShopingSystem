@@ -24,3 +24,15 @@ a,
   align-items: center;
   justify-content: center;
 }
+
+.select-box {
+  border: 1px solid #909090;
+  height: 44px;
+  border-radius: 2px;
+  padding: 10px;
+  background: #fff;
+}
+.plainText{
+  font-size: 1.1rem;
+  color: #797880;
+}

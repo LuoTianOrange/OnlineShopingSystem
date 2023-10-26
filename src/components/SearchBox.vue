@@ -1,6 +1,6 @@
 <template>
     <transition name="search-box-body-transition">
-        <div class="search-main" v-if="!isBoxClose">
+        <div class="search-main" v-show="!isBoxClose">
             <!--黑色背景-->
             <div class="search-box-body" @click="CloseSearchBox" @touchmove.prevent v-if="!isBoxClose"></div>
             <div class="search-box-head fff">
@@ -42,7 +42,6 @@ export default {
         },
         CloseSearchBox() {
             this.isBoxClose = true;
-            console.log("13131");
             // this.searchKeyword = "";
         },
         OpenSearchBox() {

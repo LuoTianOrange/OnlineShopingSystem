@@ -34,7 +34,7 @@
           <el-dropdown-menu>
             <el-dropdown-item>个人信息</el-dropdown-item>
             <el-dropdown-item>购物车</el-dropdown-item>
-            <el-dropdown-item style="color: tomato;">退出登录</el-dropdown-item>
+            <el-dropdown-item style="color: tomato;" @click="Loginout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -61,6 +61,9 @@ export default {
   methods: {
     changeTitle(){
       document.title = `nanyano OnlineStore - nanyano Online Store`
+    },
+    Loginout(){
+      this.isLogin = false
     }
   },
   setup() {
@@ -82,7 +85,7 @@ export default {
 <style>
 .header {
   height: 60px;
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: 10;
   display: flex;

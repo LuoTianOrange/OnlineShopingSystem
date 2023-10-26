@@ -1,7 +1,7 @@
 
 import { createStore } from 'vuex'
 import image from './image'
-import image2 from './image2'
+
 // 创建一个新的 store 实例
 
 const store = createStore({
@@ -9,9 +9,6 @@ const store = createStore({
     return {
       image: [
         ...image,
-      ],
-      image2: [
-        ...image2,
       ],
       currentImg: [
         {
