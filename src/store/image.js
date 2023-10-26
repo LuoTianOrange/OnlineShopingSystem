@@ -159,14 +159,14 @@ export default [
         no: 6,
         image: "https://nanyanostore.com/cdn/shop/files/e94d9e1c137c50a691750722ee8dacbd_1080x.png?v=1687767322",
         alt: "杯子",
-        name: "NACHONEKOタンブラー",
+        name: "NACHONEKOタンブラー17",
         price: "5500"
     },
     {
         no: 6,
         image: "https://nanyanostore.com/cdn/shop/files/e94d9e1c137c50a691750722ee8dacbd_1080x.png?v=1687767322",
         alt: "杯子",
-        name: "NACHONEKOタンブラー",
+        name: "NACHONEKOタンブラー18",
         price: "5500"
     },
 ]
