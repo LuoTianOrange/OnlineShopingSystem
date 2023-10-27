@@ -6,27 +6,48 @@ export default [
         name: "NACHONEKO抱き枕カバー",
         price: "12000",
         images: [
-            
+            {
+                Imgid: 1,
+                Url: "https://nanyanostore.com/cdn/shop/files/f36dcd5983ab749dd2c99a54eb52b694_1024x1024_2x_9498ee9b-2cb0-4025-ad8d-bbd5bf9f8d9d_1024x1024@2x.jpg?v=1697440341"
+            },
         ],
-        hasSize: 0,
         size: [
             {
-                No: 1,
+                Imgid: 1,
                 Option: "L",
             },
             {
-                No: 2,
+                Imgid: 2,
                 Option: "S",
             },
         ], //商品的尺寸选择
         amount: "100",
+        describe:[//商品描述
+            {
+
+            }
+        ],
     },
     {
         no: 2,
         image: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/3c2fc567c824c5a2c0b4645e8482d106_360x.png?v=1691139506",
         alt: "鼠标垫",
         name: "NACHONEKO ゲーミングマウスパッド",
-        price: "5000"
+        price: "5000",
+        images: [
+            {
+                Imgid: 1,
+                Url: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/3c2fc567c824c5a2c0b4645e8482d106_1024x1024@2x.png?v=1691139506"
+            },
+            {
+                Imgid: 2,
+                Url: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/2765eeec28d19d510f5d1517fd423a49_1024x1024@2x.png?v=1691139506"
+            },
+            {
+                Imgid: 3,
+                Url: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/5a9520dfbdb38ffedd3102ed736bdfca_1024x1024@2x.png?v=1691139506"
+            },
+        ],
     },
     {
         no: 3,
@@ -65,7 +86,7 @@ export default [
         hasSize: 0,
         size: [
             {
-                No: 1,
+                Imgid: 1,
                 Option: "L",
             },
         ], //商品的尺寸选择

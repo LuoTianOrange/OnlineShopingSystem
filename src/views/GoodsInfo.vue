@@ -16,10 +16,10 @@
                         <img :src="CurrentImage.image" alt="商品图片" class="w-full">
                     </div>
                 </div>
-                <div class="pt-[10px]">
+                <div class="pt-[10px] flex" v-if="CurrentImage.images && CurrentImage.images.length > 1">
                     <!--图片-->
                     <!-- commit：每次页面渲染时都会调用一次getNewIndex() -->
-                    <img :src="CurrentImage.image" alt=""
+                    <img v-for="i in CurrentImage.images" :key="i.Imgid" :src="i.Url" alt=""
                         class="w-[112px] h-[112px] object-cover mr-[10px] border-2 border-black">
                 </div>
             </div>
@@ -28,10 +28,10 @@
                 <span class="goodname">{{ CurrentImage.name }}</span>
                 <span class="goodprice">¥{{ CurrentImage.price }}</span>
                 <div class="infobox w-full pt-[50px]">
-                    <span class="mb-[5px]" v-if="CurrentImage.hasSize == 0">尺寸</span>
+                    <span class="mb-[5px]" v-if="CurrentImage.size && CurrentImage.size.length > 0">尺寸</span>
                     <select name="size" id="size" class="select-box w-[50%] mb-[5px]"
-                        v-if="CurrentImage.hasSize == 0">
-                        <option v-for="a in CurrentImage.size" :value="a.Option" :key="a.No"><!--没有成功渲染-->
+                        v-if="CurrentImage.size && CurrentImage.size.length > 0">
+                        <option v-for="a in CurrentImage.size" :value="a.Option" :key="a.No">
                             {{ a.Option }}
                         </option>
                     </select>
@@ -56,7 +56,7 @@
             </div>
         </div>
         <!--添加购物车提示框-->
-        <AddSCPBox ref="SearchBoxRef"></AddSCPBox>
+        <AddSCPBox ref="SearchBoxRef" :buynumber="buynumber"></AddSCPBox>
         <!--随机显示商品-->
         <div></div>
     </div>
@@ -65,6 +65,7 @@
 <script>
 import AddSCPBox from "@/components/AddSCPBox.vue";
 import { ref } from 'vue';
+import Cart from './Cart.vue';
 export default {
     data() {
         return {
@@ -85,12 +86,13 @@ export default {
         }
     },
     components: {
-        AddSCPBox,
+        AddSCPBox, Cart
     },
     computed: {
         CurrentImage() {
             return this.$store.state.image[this.$store.state.itemIndex ?? 0];
         },
+
     },
     created() {
         let currentItemIndex = 0

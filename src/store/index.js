@@ -7,30 +7,38 @@ import image from './image'
 const store = createStore({
   state() {
     return {
+      //商品数据
       image: [
         ...image,
       ],
-      currentImg: [
+      //购物车数据
+      Cartcount: [
         {
-          no: 1,
-          href: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/f36dcd5983ab749dd2c99a54eb52b694_1024x1024_2x_9498ee9b-2cb0-4025-ad8d-bbd5bf9f8d9d_360x.jpg?v=1697440341",
-          alt: "抱枕",
-          name: "NACHONEKO抱き枕カバー",
-          price: "12000",
-          size: "L", //商品的尺寸选择
-          amount: "100",
-          images: []
+
         }
       ],
       itemIndex: 0,
+      buynumber: Number,//添加商品数量
+    }
+  },
+  getters:
+  {
+    getCart(state){
+      return state.Cartcount
     }
   },
   mutations: {
     setItemIndex(state, index) {
       // commit：将传来的值赋给itemIndex
       state.itemIndex = index
+    },
+    setbuynumber(state, number) {
+      state.buynumber = number
+    },
+    //购物车数据
+    Cartcount(state, n){
+      state.Cartcount.push(n)
     }
-    
   }
 })
 

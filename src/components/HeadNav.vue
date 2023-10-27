@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <router-link to="/" @click="changeTitle">
-    <img src="../assets/photo/03_180x.webp" style="width: 130px;height: auto;">
+      <img src="../assets/photo/03_180x.webp" style="width: 130px;height: auto;">
     </router-link>
     <div class="flex items-center">
       <!--打开搜索框-->
@@ -33,7 +33,11 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>个人信息</el-dropdown-item>
-            <el-dropdown-item>购物车</el-dropdown-item>
+            <el-dropdown-item>
+              <router-link to="/Cart" class="w-[100%]">
+                购物车
+              </router-link>
+            </el-dropdown-item>
             <el-dropdown-item style="color: tomato;" @click="Loginout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -59,10 +63,10 @@ export default {
     SearchBox,
   },
   methods: {
-    changeTitle(){
+    changeTitle() {
       document.title = `nanyano OnlineStore - nanyano Online Store`
     },
-    Loginout(){
+    Loginout() {
       this.isLogin = false
     }
   },

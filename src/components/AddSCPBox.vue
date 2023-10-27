@@ -21,11 +21,14 @@
                 </div>
                 <div class="flex">
                     <div class="prom-goods-name">NACHONEKO抱き枕カバー</div>
-                    <div class="prom-count plainText">数量:&nbsp;1</div>
+                    <div class="prom-count plainText">数量:&nbsp;{{ this.buynumber }}</div>
                 </div>
             </div>
             <button class="select-box w-[100%] prom-watchcar" style="background: #f8f8f8;">
-                查看购物车(动态数量)</button>
+                <router-link to="/Cart" class="w-[100%]">
+                    查看购物车({{ this.Cartcount.length }})
+                </router-link>
+            </button>
             <div class="prom-box-foot plainText">
                 <button class="foot-button" @click="CloseSearchBox">继续购物</button>
             </div>
@@ -34,28 +37,40 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 export default {
     emits: ["isBoxClose"],
+    props: {
+        buynumber: {
+            type: Number,
+            default: 0
+        }
+    },
     data() {
         return {
             isBoxClose: true,
         };
     },
+    computed:{
+        ...mapState(['Cartcount']),
+    },
     methods: {
         OpenSearchBox() {
             this.isBoxClose = false;
+            setTimeout(() => {
+                this.isBoxClose = true;
+            }, 5000);
         },
+
         CloseSearchBox() {
             this.isBoxClose = true;
         },
     },
+
 }
 </script>
 
 <style scoped>
-/* .s1-width-none {
-    top: -300px !important;
-} */
 
 .prom-box-main-transition-enter-active,
 .prom-box-main-transition-leave-active {
@@ -66,6 +81,7 @@ export default {
 .prom-box-main-transition-leave-to {
     transform: translateY(-300px) !important;
 }
+
 
 .prom-box-main {
     position: fixed;
@@ -114,7 +130,7 @@ export default {
 .prom-count {
     margin-left: 10px;
     min-width: 60px;
-    white-space:nowrap;
+    white-space: nowrap;
 }
 
 .prom-goods-name {
