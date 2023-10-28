@@ -8,7 +8,7 @@
       <div class="new-item">NEW ITEMS</div>
       <div class="new-item-box">
         <!--将图片数据和盒子的样式传入GoodItem-->
-          <GoodsItem :image="image" :itemw="itemw1" :img1="img1" :img2="img12" class="item-1"></GoodsItem>
+        <GoodsItem :image="image" :itemw="itemw1" :img1="img1" :img2="img12" class="item-1"></GoodsItem>
       </div>
     </div>
     <!--下方商品展示-->
@@ -18,6 +18,15 @@
         <GoodsItem :image="image" :itemw="itemw2" :img1="img2" :img2="img22" class="item-2"></GoodsItem>
       </div>
     </div>
+    <!--查看更多商品按钮-->
+    <div class="main-box">
+      <router-link to="/GoodsClass">
+        <button class="blackbutton">查看全部</button>
+      </router-link>
+    </div>
+    <!--底图-->
+    <img src="https://nanyanostore.com/cdn/shop/files/tunagiPC_1296x.png?v=1639728452" class="photo-1 py-[60px]"
+      style="height: auto;">
   </div>
 </template>
 
@@ -32,7 +41,7 @@ export default {
       itemw2: 200,
       img1: 0,
       img12: 6,
-      img2:6,
+      img2: 6,
       img22: 9999999,
     }
   },

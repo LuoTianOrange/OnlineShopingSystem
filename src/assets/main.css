@@ -32,7 +32,19 @@ a,
   padding: 10px;
   background: #fff;
 }
-.plainText{
+
+.plainText {
   font-size: 1.1rem;
   color: #797880;
+}
+
+.blackbutton {
+  border: none;
+  /* height: 44px;
+  min-width: 80px; */
+  border-radius: 2px;
+  background: #697880;
+  color: #fff;
+  font-weight: bold;
+  padding: 15px 25px;
 }

@@ -49,7 +49,7 @@
           <div>总计</div>
           <div class="pl-[50px]">10000010RMB</div>
         </div>
-        <button class="payment">结账</button>
+        <button class="blackbutton">结账</button>
       </div>
     </div>
   </div>
@@ -160,16 +160,6 @@ export default {
   color: #797880;
   text-align: right;
   font-size: 1.3rem;
-}
-
-.payment {
-  border: none;
-  height: 44px;
-  width: 80px;
-  border-radius: 2px;
-  background: #697880;
-  color: #fff;
-  font-weight: bold;
 }
 
 @media screen and (width <=800px) {

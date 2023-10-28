@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-[160px] footnav">
     <div class="footnav-box">
-      <span class="footnav-text1">© 2023, nanyano Online Store Powered by Shopify</span>
+      <span class="footnav-text1">© 2023,Imitation nanyano Online Store Powered by Vite</span>
     </div>
   </div>
 </template>

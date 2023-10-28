@@ -1,6 +1,7 @@
 export default [
     {
         no: 1,
+        type: "Clothing",//商品种类
         image: "https://nanyanostore.com/cdn/shop/files/f36dcd5983ab749dd2c99a54eb52b694_1024x1024_2x_9498ee9b-2cb0-4025-ad8d-bbd5bf9f8d9d_1024x1024@2x.jpg?v=1697440341",
         alt: "抱枕",
         name: "NACHONEKO抱き枕カバー",
@@ -22,7 +23,7 @@ export default [
             },
         ], //商品的尺寸选择
         amount: "100",
-        describe:[//商品描述
+        desc:[//商品描述
             {
 
             }
@@ -30,6 +31,7 @@ export default [
     },
     {
         no: 2,
+        type: "DailyUse",
         image: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/3c2fc567c824c5a2c0b4645e8482d106_360x.png?v=1691139506",
         alt: "鼠标垫",
         name: "NACHONEKO ゲーミングマウスパッド",
@@ -53,28 +55,28 @@ export default [
         no: 3,
         image: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/453de868dfcde60300e945d06e63e9f0_360x.png?v=1694767023",
         alt: "杯子",
-        name: "NACHONEKOタンブラー",
+        name: "NACHONEKOタペストリー（B2横）",
         price: "3000"
     },
     {
         no: 4,
         image: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/006a704d20615d9781a9022c66d721c2_360x.png?v=1686555046",
         alt: "杯子",
-        name: "NACHONEKOタンブラー1",
+        name: "NACHONEKOゲーミングクッション",
         price: "3500"
     },
     {
         no: 5,
         image: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/d2a865b4f104b1b81ff2e1b5d0786480_360x.png?v=1687746505",
         alt: "杯子",
-        name: "NACHONEKOタンブラー2",
+        name: "HENNYANOぬいぐるみセット",
         price: "6500"
     },
     {
         no: 6,
         image: "https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/4ae3e89975448e1d52422623feb41fda_360x.png?v=1691130799",
         alt: "杯子",
-        name: "NACHONEKOタンブラー3",
+        name: "NACHONEKOアイマスク",
         price: "5500"
     },
     {
