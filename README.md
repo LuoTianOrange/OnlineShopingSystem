@@ -6,5 +6,5 @@
 
 项目结构
 项目结构如下所示：  
-页面：首页MainPage，购物车Cart，商品详细信息GoodsInfo，商品分类页面GoodsClass，搜索结果页面，用户信息。  
+页面：首页MainPage，购物车Cart，商品详细信息GoodsInfo，商品分类页面GoodsClass，搜索结果页面，用户信息，登录注册页面UserLogin。  
 组件：顶部导航栏HeadNav，底部信息栏FootNav，搜索框SearchBox，图片展示框GoodsItem，图片放大镜，添加购物车提示框AddSCPBox，背景BackGround

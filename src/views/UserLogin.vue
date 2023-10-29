@@ -3,25 +3,63 @@
         <div class="loginbg"></div>
         <div class="body-main fff">
             <div class="px-[40px] flex flex-row items-center justify-center w-full min-w-[345px] opacity-[0.9]">
+                <!--左侧二维码登录-->
                 <div class="w-[300px] h-[400px] p-[40px] bg-white flex flex-col items-center">
                     <div class="flex flex-col items-center">
                         <div class="text1">扫描二维码登录</div>
                         <img :src="qrcode" alt="QR Code" class="w-[250px] max-w-[none] p-[20px] border-r-[1px]" />
                     </div>
                 </div>
-                <div class="w-[500px] h-[400px] py-[40px] bg-white flex flex-col items-center pr-[40px]">
-                    <div class="text1 my-[10px]">密码登录</div>
+                <!--右侧密码登录-->
+                <div class="w-[500px] h-[400px] py-[40px] bg-white flex flex-col items-center pr-[40px]"
+                    v-if="OpenReg == false">
+                    <div class="text1 my-[10px] login-title">
+                        <span class="text1 bluetext">密码登录</span>/<span class="text1" @click="setOpenReg">账号注册</span>
+                    </div>
                     <div class="w-full flex justify-center flex-row items-center my-[10px]">
                         <span class="m-[10px]">账号</span>
                         <input class="select-box w-[80%]" type="text" placeholder="请输入账号">
                     </div>
-                    <div class="w-full flex justify-center flex-row items-center">
+                    <div class="w-full flex justify-center flex-row items-center relative">
                         <span class="m-[10px]">密码</span>
-                        <input class="select-box w-[80%]" type="text" placeholder="请输入密码">
+                        <!--密码显隐-->
+                        <input class="select-box w-[80%]" :type="btnType" placeholder="请输入密码">
+                        <el-icon class="right-[40px]" style="position: absolute!important;" @click="changeBtnType1"
+                            v-if="btnType == 'text'">
+                            <View size="1.3rem" />
+                        </el-icon>
+                        <el-icon class="right-[40px]" style="position: absolute!important;" @click="changeBtnType2"
+                            v-if="btnType == 'password'">
+                            <Hide size="1.3rem" />
+                        </el-icon>
                     </div>
                     <div class="w-full flex justify-end flex-row items-center my-[20px]">
-                        <button class="blackbutton loginbtn regbtn">注册</button>
+                        <button class="blackbutton loginbtn regbtn" @click="setOpenReg">注册</button>
                         <button class="blackbutton loginbtn">登录</button>
+                    </div>
+                </div>
+                <!--右侧密码注册-->
+                <div class="w-[500px] h-[400px] py-[40px] bg-white flex flex-col items-center justify-start pr-[40px]"
+                    v-if="OpenReg == true">
+                    <div class="text1 my-[10px] login-title">
+                        <span class="text1" @click="setOpenReg">密码登录</span>/<span class="text1 bluetext">账号注册</span>
+                    </div>
+                    <div class="w-full flex flex-row items-center justify-end my-[10px]">
+                        <span class="m-[10px]">用户名</span>
+                        <input class="select-box w-[80%]" type="text" placeholder="请输入用户名">
+                    </div>
+                    <div class="w-full flex mb-[10px] flex-row items-center justify-end relative">
+                        <span class="m-[10px]">密码</span>
+                        <!--密码显隐-->
+                        <input class="select-box w-[80%]" type="text" placeholder="请输入密码">
+                    </div>
+                    <div class="w-full flex flex-row items-center justify-end relative">
+                        <span class="m-[10px]">验证密码</span>
+                        <!--密码显隐-->
+                        <input class="select-box w-[80%]" type="text" placeholder="请再次输入密码">
+                    </div>
+                    <div class="w-full flex justify-end flex-row items-center my-[20px]">
+                        <button class="blackbutton w-[80%]">注册</button>
                     </div>
                 </div>
             </div>
@@ -35,7 +73,13 @@ import { ref } from 'vue'
 import BackGround from '../components/BackGround.vue'
 
 export default {
+    data() {
+        return {
+        }
+    },
     setup() {
+        const btnType = ref('password')
+        const OpenReg = ref(false)
         const text = ref('https://vueuse.org')
         const qrcode = useQRCode(text, {
             errorCorrectionLevel: 'H',
@@ -43,16 +87,30 @@ export default {
         return {
             text,
             qrcode,
+            btnType,
+            OpenReg
         }
     },
     compnent: {
         BackGround
+    },
+    methods: {
+        //更改密码显隐
+        changeBtnType1() {
+            this.btnType = "password"
+        },
+        changeBtnType2() {
+            this.btnType = "text"
+        },
+        setOpenReg() {
+            this.OpenReg = !this.OpenReg
+        }
     }
 }
 </script>
 
 <style scoped>
-.loginbg{
+.loginbg {
     background: url(https://amashiro.com/wp-content/themes/amashiro_v0/assets/images/pc/index/img_KV.png) 0 center/cover no-repeat;
     background-color: unset;
     position: fixed;
@@ -60,6 +118,7 @@ export default {
     z-index: -1;
     width: 100%;
 }
+
 .body {
     display: flex;
     justify-content: center;
@@ -77,6 +136,9 @@ export default {
 .loginbtn {
     width: 40%;
     margin: 0 20px;
+    min-width: 80px;
+    min-height: 50px;
+    padding: inherit;
 }
 
 .regbtn {
@@ -85,10 +147,22 @@ export default {
     color: #797880;
     min-width: 80px;
     min-height: 50px;
+    padding: inherit;
+}
+
+.login-title {
+    width: 60%;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .text1 {
     font-size: 1.2rem;
     color: #5c5c5c;
     font-weight: bold;
-}</style>
+}
+.bluetext{
+    color: #66ccff
+}
+</style>

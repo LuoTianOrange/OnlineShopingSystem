@@ -11,7 +11,7 @@
             <th class="w-[20%] text-right disshow">数量</th>
             <th class="w-[10%] text-right">总计</th>
           </tr>
-          <tr class="flex justify-between bbl2" v-for="i in image" :key="i.no">
+          <tr class="flex justify-between bbl2" v-for="i in image.slice(0, 3)" :key="i.no">
             <th class="w-[50%] text-left flex">
               <img class="cart-img mr-[50px]" v-for="url in imageUrls" :key="url" :src="url" alt="">
               <img class="cart-img mr-[50px]"
@@ -64,13 +64,27 @@ export default {
       images: this.$store.state.image.images,
       image: this.$store.state.image,
       totalNumber: 0,
+      buynumber:1,
     }
   },
   computed: {
     imageUrls() {
       return this.$store.state.image.images && this.$store.state.image.images.map(image => image.Url);
     },
-    // totalNumber : buynumber * price
+
+  },
+  methods: {
+    addNumber() {
+      return this.buynumber++
+    },
+    subNumber() {
+      var i = this.buynumber - 1;
+      if (i < 0) {
+        i = 0
+      }
+      this.buynumber = i;
+      return this.buynumber
+    },
   }
 }
 </script>

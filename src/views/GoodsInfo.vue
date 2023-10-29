@@ -44,7 +44,7 @@
                             <button class="fff w-[22px] h-[22px] sub" @click="subNumber()">-</button>
                         </div>
                     </div>
-                    <button class="select-box w-[100%] mt-[30px] joincar" @click="OpenSearchBox">添加购物车</button>
+                    <button id="btn1" class="select-box w-[100%] mt-[30px] joincar" @click="OpenSearchBox">添加购物车</button>
                     <button class="payment w-[100%] mt-[10px]">使用支付宝结算</button>
                 </div>
                 <div class="describe">
@@ -135,7 +135,12 @@ export default {
         },
         resetBuynumber() {
             this.buynumber = 1;
-        }
+        },
+        stopbtn(){
+            if(this.buynumber<=1){
+                document.getElementById("btn1").disabled=true;
+            }
+        },
     },
     destroyed() {
         return this.buynumber = 1;
