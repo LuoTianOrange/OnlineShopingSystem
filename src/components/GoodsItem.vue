@@ -2,7 +2,7 @@
     <!--单货物展示盒子-->
     <div v-for="(i, index) in image.slice(img1,img2)" :key="i.no" :data-index="index" class="photo-item font-1"
         :style="{ width: itemw + 'px' }" @click="gotogoodsinfo(i, index)">
-        <img :src=i.image :alt=i.alt>
+        <img :src="i.images?.[0].Url ?? i.image" :alt=i.alt>
         <span class="font-1">{{ i.name }}</span>
         <span class="font-2">¥{{ i.price }}</span>
     </div>

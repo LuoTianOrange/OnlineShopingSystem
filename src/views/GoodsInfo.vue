@@ -10,7 +10,7 @@
                     <div ref="imgPre">
                         <img :src="CurrentImage.image" alt="商品图片" class="w-[452px]">
                     </div>
-                    <div class="topMask" @mouseenter="seeBegin" @mousemove="move"></div>
+                    <div class="topMask" id="commodityImg" @mouseenter="seeBegin" @mousemove="move"></div>
                     <!--鼠标放大镜模块-->
                     <div ref="move" v-show="isShow" class="move" :style="cursorMask">
                         <img :src="CurrentImage.image" alt="商品图片" class="w-full">
@@ -56,7 +56,7 @@
             </div>
         </div>
         <!--添加购物车提示框-->
-        <AddSCPBox ref="SearchBoxRef" :buynumber="buynumber"></AddSCPBox>
+        <AddSCPBox ref="SearchBoxRef" :buynumber="freezeBuyNumber"></AddSCPBox>
         <!--随机显示商品-->
         <div></div>
     </div>
@@ -69,7 +69,6 @@ import Cart from './Cart.vue';
 export default {
     data() {
         return {
-            buynumber: 1,
             image: this.$store.state.image,
             cursorMask: {
                 display: "none",
@@ -92,7 +91,6 @@ export default {
         CurrentImage() {
             return this.$store.state.image[this.$store.state.itemIndex ?? 0];
         },
-
     },
     created() {
         let currentItemIndex = 0
@@ -118,6 +116,11 @@ export default {
             this.isShow = 1;
             this.cursorMask.display = "block";
             console.log("isShow = " + this.isShow);
+            let element = document.getElementById("commodityImg")
+            console.log(element);
+            document.getElementById("commodityImg").addEventListener("mousemove", (e) => {
+                console.log(e.pageX, element.offsetLeft);
+            })
         },
         addNumber() {
             return this.buynumber++
@@ -138,14 +141,19 @@ export default {
         return this.buynumber = 1;
     },
     setup() {
+        const buynumber = ref(0);
+        const freezeBuyNumber = ref(0);
         const SearchBoxRef = ref(null);
 
         const OpenSearchBox = () => {
+            freezeBuyNumber.value += buynumber.value;
             SearchBoxRef.value.OpenSearchBox()
         }
 
         return {
             SearchBoxRef,
+            buynumber,
+            freezeBuyNumber,
             OpenSearchBox,
         }
     }

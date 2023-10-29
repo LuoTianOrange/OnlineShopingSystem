@@ -8,6 +8,7 @@
       <div class="new-item-box">
         <GoodsItem :image="image" :itemw="itemw1" :img1="img1" :img2="img2" class="item-2"></GoodsItem>
       </div>
+      <el-pagination background layout="prev, pager, next" :total="1000" class="flex justify-center"/>
     </div>
   </div>
 </template>

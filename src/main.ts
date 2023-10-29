@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+
 // declare const require: any
 // @ts-expect-error: store use js
 import store from './store'

@@ -2,7 +2,7 @@
 
 ## 项目介绍
 技术栈：
-- 前端：vite + vue3 + vuex + vue-router + element-plus + tailwindcss + axios 
+- 前端：vue3 + vite + vuex + vueuse + vue-router + element-plus + tailwindcss + axios 
 
 项目结构
 项目结构如下所示：  

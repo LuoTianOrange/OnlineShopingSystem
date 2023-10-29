@@ -22,7 +22,11 @@
         </svg>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item @click="isLogin = true">登录</el-dropdown-item>
+            <el-dropdown-item @click="isLogin = true">
+              <router-link to="/UserLogin">
+                登录
+              </router-link>
+            </el-dropdown-item>
             <el-dropdown-item>注册</el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -89,7 +93,7 @@ export default {
 <style>
 .header {
   height: 60px;
-  position: relative;
+  position: sticky;
   top: 0;
   z-index: 10;
   display: flex;

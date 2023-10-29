@@ -12,11 +12,7 @@ const store = createStore({
         ...image,
       ],
       //购物车数据
-      Cartcount: [
-        {
-
-        }
-      ],
+      Cartcount: [],
       itemIndex: 0,
       buynumber: Number,//添加商品数量
     }
@@ -34,6 +30,22 @@ const store = createStore({
     },
     setbuynumber(state, number) {
       state.buynumber = number
+    },
+    addCommodity(state, no, count) {
+      let hasItem = state.Cartcount.some(item => {
+        if (item.no === no) {
+          item.count += count
+          return true
+        }
+        return false
+      })
+
+      if (!hasItem) {
+        state.Cartcount.push({
+          no,
+          count
+        })
+      }
     },
     //购物车数据
     Cartcount(state, n){

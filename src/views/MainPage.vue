@@ -3,6 +3,16 @@
   <div class="body">
     <!--头图-->
     <img src="https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/topPC_1728x.png?v=1639728371" class="photo-1">
+    <div class="w-full overflow-hidden">
+      <el-carousel trigger="click" height="650px">
+        <el-carousel-item v-for="i in image.slice(0, 4)" :key="i.no" class="flex justify-center relative">
+          <img :src="i.image" class="w-full min-h-[1200px] h-auto object-cover object-center relative top-[-50%]">
+          <div class="button-container">
+            <button class="blackbutton box-text">{{ i.name }}</button>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
+    </div>
     <div id="new-items" class="main-box">
       <!--新品展示-->
       <div class="new-item">NEW ITEMS</div>
@@ -96,5 +106,43 @@ export default {
   // .new-item-box {
   //   justify-content: center;
   // }
+}
+
+.demonstration {
+  color: var(--el-text-color-secondary);
+}
+
+.el-carousel__item h3 {
+  color: #475669;
+  opacity: 0.75;
+  line-height: 300px;
+  margin: 0;
+  text-align: center;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #475669;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+
+.box-text {
+  z-index: 2;
+  font-size: 1.2rem;
+  background: #475669 !important;
+  padding: 20px;
+  opacity: 0.8;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

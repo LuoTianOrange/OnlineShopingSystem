@@ -26,6 +26,11 @@ const router = createRouter({
       name: 'GoodsClass',
       component: GoodsClass,
     },
+    {
+      path: '/UserLogin',
+      name: 'UserLogin',
+      component: () => import('@/views/UserLogin.vue')
+    },
     // {
     //   path: '/mainpage',
     //   name: 'mainpage',
