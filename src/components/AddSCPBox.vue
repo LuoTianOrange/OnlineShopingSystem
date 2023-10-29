@@ -16,11 +16,11 @@
             </div>
             <div class="prom-box-item">
                 <div class="prom-img">
-                    <img src="https://nanyanostore.com/cdn/shop/files/f36dcd5983ab749dd2c99a54eb52b694_1024x1024_2x_9498ee9b-2cb0-4025-ad8d-bbd5bf9f8d9d_1024x1024@2x.jpg"
+                    <img :src="photo"
                         alt="">
                 </div>
                 <div class="flex">
-                    <div class="prom-goods-name">NACHONEKO抱き枕カバー</div>
+                    <div class="prom-goods-name">{{ name }}</div>
                     <div class="prom-count plainText">数量:&nbsp;{{ this.buynumber }}</div>
                 </div>
             </div>
@@ -38,12 +38,22 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+let timer = null
+
 export default {
     emits: ["isBoxClose"],
     props: {
         buynumber: {
             type: Number,
             default: 0
+        },
+        name: {
+            type: String,
+            default: ''
+        },
+        photo: {
+            type: String,
+            default: ''
         }
     },
     data() {

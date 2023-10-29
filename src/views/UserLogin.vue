@@ -24,14 +24,14 @@
                         <span class="m-[10px]">密码</span>
                         <!--密码显隐-->
                         <input class="select-box w-[80%]" :type="btnType" placeholder="请输入密码">
-                        <el-icon class="right-[40px]" style="position: absolute!important;" @click="changeBtnType1"
+                        <!-- <el-icon class="right-[40px]" style="position: absolute!important;" @click="changeBtnType1"
                             v-if="btnType == 'text'">
                             <View size="1.3rem" />
                         </el-icon>
                         <el-icon class="right-[40px]" style="position: absolute!important;" @click="changeBtnType2"
                             v-if="btnType == 'password'">
                             <Hide size="1.3rem" />
-                        </el-icon>
+                        </el-icon> -->
                     </div>
                     <div class="w-full flex justify-end flex-row items-center my-[20px]">
                         <button class="blackbutton loginbtn regbtn" @click="setOpenReg">注册</button>

@@ -8,19 +8,22 @@
                 <div id="imgPre" class="relative overflow-hidden" @mouseleave="seeEnd">
 
                     <div ref="imgPre">
-                        <img :src="CurrentImage.image" alt="商品图片" class="w-[452px]">
+                        <img :src="BigUrl ?? CurrentImage.images[0].Url" alt="商品图片" class="w-[452px]">
                     </div>
                     <div class="topMask" id="commodityImg" @mouseenter="seeBegin" @mousemove="move"></div>
                     <!--鼠标放大镜模块-->
                     <div ref="move" v-show="isShow" class="move" :style="cursorMask">
-                        <img :src="CurrentImage.image" alt="商品图片" class="w-full">
+                        <img :src="BigUrl ?? CurrentImage.images[0].Url" alt="商品图片" class="w-full">
                     </div>
                 </div>
                 <div class="pt-[10px] flex" v-if="CurrentImage.images && CurrentImage.images.length > 1">
                     <!--图片-->
                     <!-- commit：每次页面渲染时都会调用一次getNewIndex() -->
                     <img v-for="i in CurrentImage.images" :key="i.Imgid" :src="i.Url" alt=""
-                        class="w-[112px] h-[112px] object-cover mr-[10px] border-2 border-black">
+                        :style="{ 'border-color': i.Imgid === currentImgId ? '#000' : 'rgb(255,255,255,0)'}"
+                        class="w-[120px] h-[120px] object-cover mr-[10px] border-box"
+                        @click="changeImg(i.Url, i.Imgid)"
+                        >
                 </div>
             </div>
             <!--商品信息-->
@@ -48,15 +51,18 @@
                     <button class="payment w-[100%] mt-[10px]">使用支付宝结算</button>
                 </div>
                 <div class="describe">
-                    ※商品画像はイメージです。実際のものとは若干異なる場合がございます。<br>
+                    <span v-for="i in CurrentImage.desc" :key="i.no">{{ i.text }}<br></span>
+                    <!-- ※商品画像はイメージです。実際のものとは若干異なる場合がございます。<br>
                     ※お客様がご利用の画面の設定及び特性により、実際のアイテムと比較し色味に若干の誤差が生じる場合がございます。予めご了承ください。<br>
                     ※注文内容や商品状態等により注文の取消し・返品をお受けできない場合がございます。<br>
-                    ※同時決済された商品は一括配送されます。他の商品と同時購入される際はご注意ください。<br>
+                    ※同時決済された商品は一括配送されます。他の商品と同時購入される際はご注意ください。<br> -->
                 </div>
             </div>
         </div>
         <!--添加购物车提示框-->
-        <AddSCPBox ref="SearchBoxRef" :buynumber="freezeBuyNumber"></AddSCPBox>
+        <AddSCPBox ref="SearchBoxRef" :buynumber="freezeBuyNumber" :name="CurrentImage.name"
+        :photo="CurrentImage?.images?.[0].Url ?? ''"
+        ></AddSCPBox>
         <!--随机显示商品-->
         <div></div>
     </div>
@@ -66,12 +72,23 @@
 import AddSCPBox from "@/components/AddSCPBox.vue";
 import { ref } from 'vue';
 import Cart from './Cart.vue';
+import throttle from 'lodash/throttle';
+
+const handleMouseMoveFn = throttle(function (e, ew, eh, cursorMask) {
+    let moveX = parseInt((900 - ew) * (e.offsetX / ew))
+    let moveY = parseInt((900 - eh) * (e.offsetY / eh))
+    cursorMask.transform = `translate(-${moveX}px, -${moveY}px)`
+}, 50)
+
 export default {
     data() {
         return {
             image: this.$store.state.image,
+            BigUrl: null,
+            currentImgId: 1,
             cursorMask: {
                 display: "none",
+                transform: "translate(0px, 0px)",
             },
             magnifier: {
                 top: 0,
@@ -105,22 +122,20 @@ export default {
     methods: {
         seeEnd() {
             //鼠标移出原图区域时，清空相关信息
-            this.Bigurl = "";
             this.left = 0;
             this.top = 0;
             this.isShow = 0;
             this.cursorMask.display = "none";
-            console.log("isShow = " + this.isShow);
+            let element = document.getElementById("commodityImg")
+            element.onmousemove = null;
         },
         seeBegin() {
             this.isShow = 1;
             this.cursorMask.display = "block";
             console.log("isShow = " + this.isShow);
             let element = document.getElementById("commodityImg")
-            console.log(element);
-            document.getElementById("commodityImg").addEventListener("mousemove", (e) => {
-                console.log(e.pageX, element.offsetLeft);
-            })
+            let ew = element.offsetWidth, eh = element.offsetHeight;
+            element.onmousemove = (e) => handleMouseMoveFn(e, ew, eh, this.cursorMask)
         },
         addNumber() {
             return this.buynumber++
@@ -136,10 +151,14 @@ export default {
         resetBuynumber() {
             this.buynumber = 1;
         },
-        stopbtn(){
-            if(this.buynumber<=1){
-                document.getElementById("btn1").disabled=true;
+        stopbtn() {
+            if (this.buynumber <= 1) {
+                document.getElementById("btn1").disabled = true;
             }
+        },
+        changeImg(Url, id) {
+            this.currentImgId = id
+            this.BigUrl = Url;
         },
     },
     destroyed() {
@@ -149,7 +168,6 @@ export default {
         const buynumber = ref(0);
         const freezeBuyNumber = ref(0);
         const SearchBoxRef = ref(null);
-
         const OpenSearchBox = () => {
             freezeBuyNumber.value += buynumber.value;
             SearchBoxRef.value.OpenSearchBox()
@@ -167,6 +185,9 @@ export default {
 </script>
 
 <style scoped>
+.border-box{
+    border: 3px solid;
+}
 .infobox {
     display: flex;
     flex-direction: column;
