@@ -4,11 +4,14 @@
     <!--下方商品展示-->
     <div id="new-items" class="main-box">
       <div style="font-size: 2.4rem;" class="text-center">商品</div>
-      <div class="new-item py-[40px]">{{27}}&nbsp;项商品</div>
+      <div class="new-item py-[40px]">{{image.length}}&nbsp;项商品</div>
       <div class="new-item-box">
         <GoodsItem :image="image" :itemw="itemw1" :img1="img1" :img2="img2" class="item-2"></GoodsItem>
       </div>
-      <el-pagination background layout="prev, pager, next" :total="1000" class="flex justify-center"/>
+      <el-pagination background layout="prev, pager, next" :total="image.length" class="flex justify-center"
+        @current-change="changePage"
+        :page-count="Math.ceil(image.length/12)"
+      />
     </div>
   </div>
 </template>
@@ -22,18 +25,24 @@ export default {
       hover: false,
       itemw1: 360,
       img1: 0,
-      img2: 9999999,
+      img2: 12,
+      currentpage: 1
     }
   },
   components: {
     GoodsItem,
   },
-  // mounted() {
-  //   this.$store.state.image
-  // }
   methods: {
-
+    changePage(page) {
+      this.currentpage = page
+        this.img1 = 12 * (this.currentpage - 1),
+        this.img2 = 12 * this.currentpage
+        window.scrollTo(0, 0)
+    }
   },
+  computed: {
+
+  }
 }
 </script>
 

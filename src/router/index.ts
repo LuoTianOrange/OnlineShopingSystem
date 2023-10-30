@@ -29,7 +29,15 @@ const router = createRouter({
     {
       path: '/UserLogin',
       name: 'UserLogin',
-      component: () => import('@/views/UserLogin.vue')
+      component: () => import('@/views/UserLogin.vue'),
+    },
+    {
+      path: '/UserReg',
+      name: 'UserReg',
+      component: () => import('@/views/UserLogin.vue'),
+      props: {
+        OpenReg: true
+      }
     },
     // {
     //   path: '/mainpage',

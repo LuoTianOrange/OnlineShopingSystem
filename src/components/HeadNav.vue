@@ -12,7 +12,6 @@
       </svg>
       <el-dropdown v-if="isLogin == false">
         <!--用户头像-->
-        <!-- <el-avatar :icon="UserFilled" class="mx-[10px]" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" /> -->
         <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
           class="mx-[10px] max-w-[40px]">
           <circle cx="24" cy="12" r="8" fill="none" stroke="#333" stroke-width="4" stroke-linecap="round"
@@ -27,7 +26,11 @@
                 登录
               </router-link>
             </el-dropdown-item>
-            <el-dropdown-item>注册</el-dropdown-item>
+            <el-dropdown-item>
+              <router-link to="/UserReg">
+                注册
+              </router-link>
+            </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>

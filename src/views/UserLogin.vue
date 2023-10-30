@@ -22,8 +22,9 @@
                     </div>
                     <div class="w-full flex justify-center flex-row items-center relative">
                         <span class="m-[10px]">密码</span>
-                        <!--密码显隐-->
+                        
                         <input class="select-box w-[80%]" :type="btnType" placeholder="请输入密码">
+                        <!--密码显隐-->
                         <!-- <el-icon class="right-[40px]" style="position: absolute!important;" @click="changeBtnType1"
                             v-if="btnType == 'text'">
                             <View size="1.3rem" />
@@ -32,6 +33,7 @@
                             v-if="btnType == 'password'">
                             <Hide size="1.3rem" />
                         </el-icon> -->
+                        <div style="position: absolute;right: 60px;font-weight: 600;">忘记密码?</div>
                     </div>
                     <div class="w-full flex justify-end flex-row items-center my-[20px]">
                         <button class="blackbutton loginbtn regbtn" @click="setOpenReg">注册</button>
@@ -73,14 +75,20 @@ import { ref } from 'vue'
 import BackGround from '../components/BackGround.vue'
 
 export default {
+    props:{
+        OpenReg:{
+            type:Boolean,
+            default:false
+        }
+    },
     data() {
         return {
         }
     },
-    setup() {
+    setup(props) {
         const btnType = ref('password')
-        const OpenReg = ref(false)
-        const text = ref('https://vueuse.org')
+        const OpenReg = ref(props.OpenReg)
+        const text = ref('https://blog.csdn.net/qq_36181155/article/details/106311262')
         const qrcode = useQRCode(text, {
             errorCorrectionLevel: 'H',
         })

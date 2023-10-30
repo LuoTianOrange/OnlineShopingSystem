@@ -6,7 +6,6 @@
             <div id="goodsPics">
                 <!--当前查看商品图区域-->
                 <div id="imgPre" class="relative overflow-hidden" @mouseleave="seeEnd">
-
                     <div ref="imgPre">
                         <img :src="BigUrl ?? CurrentImage.images[0].Url" alt="商品图片" class="w-[452px]">
                     </div>
@@ -16,14 +15,12 @@
                         <img :src="BigUrl ?? CurrentImage.images[0].Url" alt="商品图片" class="w-full">
                     </div>
                 </div>
-                <div class="pt-[10px] flex" v-if="CurrentImage.images && CurrentImage.images.length > 1">
+                <div class="pt-[15px] flex" v-if="CurrentImage.images && CurrentImage.images.length > 1">
                     <!--图片-->
                     <!-- commit：每次页面渲染时都会调用一次getNewIndex() -->
                     <img v-for="i in CurrentImage.images" :key="i.Imgid" :src="i.Url" alt=""
-                        :style="{ 'border-color': i.Imgid === currentImgId ? '#000' : 'rgb(255,255,255,0)'}"
-                        class="w-[120px] h-[120px] object-cover mr-[10px] border-box"
-                        @click="changeImg(i.Url, i.Imgid)"
-                        >
+                        :style="{ 'border-color': i.Imgid === currentImgId ? '#000' : 'rgb(255,255,255,0)' }"
+                        class="w-[120px] h-[120px] object-cover mr-[10px] border-box" @click="changeImg(i.Url, i.Imgid)">
                 </div>
             </div>
             <!--商品信息-->
@@ -51,18 +48,15 @@
                     <button class="payment w-[100%] mt-[10px]">使用支付宝结算</button>
                 </div>
                 <div class="describe">
-                    <span v-for="i in CurrentImage.desc" :key="i.no">{{ i.text }}<br></span>
-                    <!-- ※商品画像はイメージです。実際のものとは若干異なる場合がございます。<br>
-                    ※お客様がご利用の画面の設定及び特性により、実際のアイテムと比較し色味に若干の誤差が生じる場合がございます。予めご了承ください。<br>
-                    ※注文内容や商品状態等により注文の取消し・返品をお受けできない場合がございます。<br>
-                    ※同時決済された商品は一括配送されます。他の商品と同時購入される際はご注意ください。<br> -->
+                    <div v-for="i in CurrentImage.desc" :key="i.no" class="mb-[40px]">
+                        <span v-for="(text, index) in i.text.split('\n')" :key="index" >{{ text }}<br></span>
+                    </div>
                 </div>
             </div>
         </div>
         <!--添加购物车提示框-->
         <AddSCPBox ref="SearchBoxRef" :buynumber="freezeBuyNumber" :name="CurrentImage.name"
-        :photo="CurrentImage?.images?.[0].Url ?? ''"
-        ></AddSCPBox>
+            :photo="CurrentImage?.images?.[0].Url ?? ''"></AddSCPBox>
         <!--随机显示商品-->
         <div></div>
     </div>
@@ -185,9 +179,10 @@ export default {
 </script>
 
 <style scoped>
-.border-box{
+.border-box {
     border: 3px solid;
 }
+
 .infobox {
     display: flex;
     flex-direction: column;
@@ -274,7 +269,7 @@ select {
 
 .describe {
     margin-top: 60px;
-    font-size: 1rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: #6d6d6d;
     font-family: 'tangyuan';
