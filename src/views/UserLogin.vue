@@ -18,12 +18,12 @@
                     </div>
                     <div class="w-full flex justify-center flex-row items-center my-[10px]">
                         <span class="m-[10px]">账号</span>
-                        <input class="select-box w-[80%]" type="text" placeholder="请输入账号">
+                        <input class="select-box w-[80%]" type="text" placeholder="请输入账号" v-model="account">
                     </div>
                     <div class="w-full flex justify-center flex-row items-center relative">
                         <span class="m-[10px]">密码</span>
                         
-                        <input class="select-box w-[80%]" :type="btnType" placeholder="请输入密码">
+                        <input class="select-box w-[80%]" :type="btnType" placeholder="请输入密码" v-model="password">
                         <!--密码显隐-->
                         <!-- <el-icon class="right-[40px]" style="position: absolute!important;" @click="changeBtnType1"
                             v-if="btnType == 'text'">
@@ -37,7 +37,7 @@
                     </div>
                     <div class="w-full flex justify-end flex-row items-center my-[20px]">
                         <button class="blackbutton loginbtn regbtn" @click="setOpenReg">注册</button>
-                        <button class="blackbutton loginbtn">登录</button>
+                        <button class="blackbutton loginbtn" @click="VerifyLogin">登录</button>
                     </div>
                 </div>
                 <!--右侧密码注册-->
@@ -88,6 +88,8 @@ export default {
     setup(props) {
         const btnType = ref('password')
         const OpenReg = ref(props.OpenReg)
+        const password = ref()
+        const account = ref()
         const text = ref('https://blog.csdn.net/qq_36181155/article/details/106311262')
         const qrcode = useQRCode(text, {
             errorCorrectionLevel: 'H',
@@ -96,7 +98,9 @@ export default {
             text,
             qrcode,
             btnType,
-            OpenReg
+            OpenReg,
+            password,
+            account,
         }
     },
     compnent: {
@@ -112,8 +116,15 @@ export default {
         },
         setOpenReg() {
             this.OpenReg = !this.OpenReg
+        },
+        //密码验证
+        VerifyLogin(){
+            if(this.account.value === 123 && this.password.value === 123){
+                this.$router.push('/')
+                this.isLogin = true
+            }
         }
-    }
+    },
 }
 </script>
 

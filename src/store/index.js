@@ -15,6 +15,8 @@ const store = createStore({
       Cartcount: [],
       itemIndex: 0,
       buynumber: Number,//添加商品数量
+      searchKeyword: '',
+      isLogin: false,
     }
   },
   getters:
@@ -50,6 +52,12 @@ const store = createStore({
     //购物车数据
     Cartcount(state, n){
       state.Cartcount.push(n)
+    },
+    setSearchKeyword(state, keyword) {
+      state.searchKeyword = keyword
+    },
+    changeLoginState(state, isLogin){
+      state.isLogin = isLogin
     }
   }
 })

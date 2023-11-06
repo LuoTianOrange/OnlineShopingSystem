@@ -39,6 +39,16 @@ const router = createRouter({
         OpenReg: true
       }
     },
+    {
+      path: '/SearchInfo',
+      name: 'SearchInfo',
+      component: () => import('@/views/SearchInfo.vue'),
+    },
+    {
+      path: '/UserInfo',
+      name: 'UserInfo',
+      component: () => import('@/views/UserInfo.vue'),
+    },
     // {
     //   path: '/mainpage',
     //   name: 'mainpage',

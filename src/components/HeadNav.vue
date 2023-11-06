@@ -21,7 +21,7 @@
         </svg>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item @click="isLogin = true">
+            <el-dropdown-item>
               <router-link to="/UserLogin">
                 登录
               </router-link>
@@ -39,7 +39,11 @@
         <img src="//i1.hdslb.com/bfs/face/698c2ca3500a2b15ad8f1d129e74acae025c2434.jpg" class="userheader">
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>个人信息</el-dropdown-item>
+            <el-dropdown-item>
+              <router-link to="/UserInfo" class="w-[100%]">
+                个人信息
+              </router-link>
+            </el-dropdown-item>
             <el-dropdown-item>
               <router-link to="/Cart" class="w-[100%]">
                 购物车

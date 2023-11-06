@@ -6,21 +6,25 @@
             <div class="search-box-head fff">
                 <div class="head-inline">
                     <div class="head-search">
-                        <input class="head-search-input head-search-text1" type="text" title="1" placeholder="搜索商品" v-model="searchKeyword">
-                        <svg width="25" height="25" viewBox="0 0 48 48" fill="none" class="mx-[20px]">
-                            <path
-                                d="M33.07 33.071c6.25-6.248 6.25-16.379 0-22.627-6.248-6.249-16.378-6.249-22.627 0-6.248 6.248-6.248 16.379 0 22.627 6.249 6.248 16.38 6.248 22.628 0zm0 0l8.486 8.485"
-                                stroke="#162950" stroke-width="4" />
-                        </svg>
+                        <input class="head-search-input head-search-text1" type="text" title="1" placeholder="搜索商品"
+                            v-model="searchKeyword">
+                        <router-link to="/SearchInfo" @click="CloseSearchBox">
+                            <svg width="25" height="25" viewBox="0 0 48 48" fill="none" class="mx-[20px]">
+                                <path
+                                    d="M33.07 33.071c6.25-6.248 6.25-16.379 0-22.627-6.248-6.249-16.378-6.249-22.627 0-6.248 6.248-6.248 16.379 0 22.627 6.249 6.248 16.38 6.248 22.628 0zm0 0l8.486 8.485"
+                                    stroke="#162950" stroke-width="4" />
+                            </svg>
+                        </router-link>
                     </div>
                     <div @click="CleanInput">
-                    <svg width="22" height="22" class="mx-[15px]" viewBox="0 0 48 48" fill="none"
-                        xmlns="http://www.w3.org/2000/svg" >
-                        <path d="M8 8L40 40" stroke="#333" stroke-width="4" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                        <path d="M8 40L40 8" stroke="#333" stroke-width="4" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg></div>
+                        <svg width="22" height="22" class="mx-[15px]" viewBox="0 0 48 48" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 8L40 40" stroke="#333" stroke-width="4" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M8 40L40 8" stroke="#333" stroke-width="4" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,6 +32,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
     emits: ["isBoxClose"],
     data() {
@@ -47,7 +52,14 @@ export default {
         OpenSearchBox() {
             this.isBoxClose = false;
         },
-    }
+        setSearchkey(searchKeyword){
+            this.$store.commit("searchKeyword",this.searchKeyword);
+        },
+        ...mapMutations(['updateSearchKeyword'])
+    },
+    computed: {
+   ...mapState(['searchKeyword'])
+ },
 }
 </script>
 
