@@ -22,7 +22,7 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>
-              <router-link to="/UserLogin">
+              <router-link to="/UserLogin" @click="isLogin = true">
                 登录
               </router-link>
             </el-dropdown-item>

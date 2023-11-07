@@ -3,6 +3,7 @@ import MainPage from '../views/MainPage.vue'
 import GoodsInfo from '@/views/GoodsInfo.vue'
 import Cart from '@/views/Cart.vue'
 import GoodsClass from '@/views/GoodsClass.vue'
+import Buys from '@/views/User/Buys.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -48,6 +49,12 @@ const router = createRouter({
       path: '/UserInfo',
       name: 'UserInfo',
       component: () => import('@/views/UserInfo.vue'),
+      children: [
+        {
+          path: 'Buys',
+          component: () => import('@/views/User/Buys.vue'),
+        }
+      ]
     },
     // {
     //   path: '/mainpage',

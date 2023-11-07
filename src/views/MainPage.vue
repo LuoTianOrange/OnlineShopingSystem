@@ -30,9 +30,7 @@
     </div>
     <!--查看更多商品按钮-->
     <div class="main-box">
-      <router-link to="/GoodsClass">
-        <button class="blackbutton">查看全部</button>
-      </router-link>
+        <button class="blackbutton" @click="gotoGoodClass()">查看全部</button>
     </div>
     <!--底图-->
     <img src="https://nanyanostore.com/cdn/shop/files/tunagiPC_1296x.png?v=1639728452" class="photo-1 py-[60px]"
@@ -58,11 +56,12 @@ export default {
   components: {
     GoodsItem,
   },
-  // mounted() {
-  //   this.$store.state.image
-  // }
   methods: {
-
+    //跳转GoodClass并且回到顶部
+    gotoGoodClass(){
+      this.$router.push('/GoodsClass')
+      window.scrollTo(0,0)
+    }
   },
 }
 </script>

@@ -2,16 +2,17 @@
     <div class="body">
         <div class="loginbg"></div>
         <div class="body-main fff">
-            <div class="px-[40px] flex flex-row items-center justify-center w-full min-w-[345px] opacity-[0.9]">
+            <div class="px-[40px] flex flex-row items-center justify-center 
+            w-full min-w-[345px] opacity-[0.95] reg-main">
                 <!--左侧二维码登录-->
-                <div class="w-[300px] h-[400px] p-[40px] bg-white flex flex-col items-center">
+                <div class="w-[300px] h-[400px] p-[40px] bg-white flex flex-col items-center left-QRcode">
                     <div class="flex flex-col items-center">
                         <div class="text1">扫描二维码登录</div>
                         <img :src="qrcode" alt="QR Code" class="w-[250px] max-w-[none] p-[20px] border-r-[1px]" />
                     </div>
                 </div>
                 <!--右侧密码登录-->
-                <div class="w-[500px] h-[400px] py-[40px] bg-white flex flex-col items-center pr-[40px]"
+                <div class="w-[500px] h-[400px] py-[40px] bg-white flex flex-col items-center pr-[40px] right-pwd"
                     v-if="OpenReg == false">
                     <div class="text1 my-[10px] login-title">
                         <span class="text1 bluetext">密码登录</span>/<span class="text1" @click="setOpenReg">账号注册</span>
@@ -37,7 +38,7 @@
                     </div>
                     <div class="w-full flex justify-end flex-row items-center my-[20px]">
                         <button class="blackbutton loginbtn regbtn" @click="setOpenReg">注册</button>
-                        <button class="blackbutton loginbtn" @click="VerifyLogin">登录</button>
+                        <button class="blackbutton loginbtn" @click="VerifyLogin(account,password)">登录</button>
                     </div>
                 </div>
                 <!--右侧密码注册-->
@@ -118,10 +119,17 @@ export default {
             this.OpenReg = !this.OpenReg
         },
         //密码验证
-        VerifyLogin(){
-            if(this.account.value === 123 && this.password.value === 123){
+        VerifyLogin(account,password){
+            if(account == 123 && password == 123){
                 this.$router.push('/')
                 this.isLogin = true
+            }
+            else if(account == '' || password == '' || password == undefined || account == undefined){
+                alert('账号或密码不能为空')
+            }
+            else{
+                alert("账号或密码错误");
+                console.log(account,password);
             }
         }
     },
@@ -129,6 +137,19 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (width < 768px){
+    .left-QRcode{
+        display: none;
+    }
+    .right-pwd{
+        padding: 40px;
+    }
+    .reg-main{
+        padding: 0;
+        margin-top: 40px;
+    }
+}
+
 .loginbg {
     background: url(https://amashiro.com/wp-content/themes/amashiro_v0/assets/images/pc/index/img_KV.png) 0 center/cover no-repeat;
     background-color: unset;

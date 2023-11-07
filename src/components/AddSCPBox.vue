@@ -16,8 +16,7 @@
             </div>
             <div class="prom-box-item">
                 <div class="prom-img">
-                    <img :src="photo"
-                        alt="">
+                    <img :src="photo" alt="">
                 </div>
                 <div class="flex">
                     <div class="prom-goods-name">{{ name }}</div>
@@ -61,7 +60,7 @@ export default {
             isBoxClose: true,
         };
     },
-    computed:{
+    computed: {
         ...mapState(['Cartcount']),
     },
     methods: {
@@ -69,7 +68,7 @@ export default {
             this.isBoxClose = false;
             setTimeout(() => {
                 this.isBoxClose = true;
-            }, 5000);
+            }, 10000);
         },
 
         CloseSearchBox() {
@@ -81,7 +80,6 @@ export default {
 </script>
 
 <style scoped>
-
 .prom-box-main-transition-enter-active,
 .prom-box-main-transition-leave-active {
     transition: transform 1s;
@@ -93,6 +91,18 @@ export default {
 }
 
 
+@media screen and (width < 768px) {
+    .prom-box-main {
+        max-width: auto;
+    }
+}
+
+@media screen and (width >= 768px) {
+    .prom-box-main {
+        max-width: 400px;
+    }
+}
+
 .prom-box-main {
     position: fixed;
     top: 0;
@@ -100,7 +110,6 @@ export default {
     bottom: 0;
     background: #f8f8f8;
     z-index: 20;
-    max-width: 400px;
     width: 100%;
     min-height: 200px;
     max-height: fit-content;
