@@ -14,7 +14,7 @@
         <!--用户名和昵称-->
         <div class="infobox flex items-start flex-col justify-center">
             <div class="flex items-center">
-                <div class="mx-[20px] my-[10px] plainText">用户名:</div>
+                <div class="mx-[20px] my-[10px] plainText">UID:</div>
                 <div>{{ uid }}</div>
             </div>
             <div class="flex items-center">
@@ -47,6 +47,7 @@ const username = ref('正中大橘猫')
 const radio = ref(1)
 const isCover = ref(false)
 export default {
+    name: 'myinfo',
     setup() {
         return {
             username, radio, isCover,uid

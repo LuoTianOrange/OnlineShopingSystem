@@ -12,7 +12,11 @@
         </div>
         <!--右侧展示-->
         <div class="right">
-          <router-view></router-view>
+          <router-view v-slot="{ Component }" :key="$route.fullPath">
+            <keep-alive>
+              <component :is="Component" />
+            </keep-alive>
+          </router-view>
         </div>
       </div>
   </div>
@@ -20,6 +24,7 @@
 
 <script>
 export default {
+  name: 'UserInfo',
   data(){
     return{
       leftmenu:[
@@ -29,16 +34,19 @@ export default {
         {name:'我的购物车',no:4,router:'/Cart'},
         {name:'购买的商品',no:5,router:'/UserInfo/Buys'},
       ],
-      Ino:1,
+      Ino: 1,
     }
   },
   methods:{
     changeboxNo(no){
-      console.log(this.$router);
-      this.Ino = no;
-      // this.$router.push(router)
+      this.Ino = no
     }
-
+  },
+  mounted() {
+    console.log('mounted',this.Ino);
+  },
+  unmounted() {
+    console.log('unmounted', this.Ino);
   }
 }
 </script>

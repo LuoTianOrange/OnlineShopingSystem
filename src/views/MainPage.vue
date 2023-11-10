@@ -6,7 +6,7 @@
     <div class="w-full overflow-hidden">
       <!--滚动展示-->
       <el-carousel trigger="click" height="650px">
-        <el-carousel-item v-for="i in image.slice(0, 4)" :key="i.no" :data-index="index" class="flex justify-center relative">
+        <el-carousel-item v-for="i in image.slice(0, 4)" :key="i.no" class="flex justify-center relative">
           <img :src="i.image" class="w-full min-h-[1200px] h-auto object-cover object-center relative top-[-50%]">
           <div class="button-container">
             <button class="blackbutton box-text" @click="gotogoodsinfo(i, index)">{{ i.name }}</button>

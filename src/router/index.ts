@@ -52,18 +52,22 @@ const router = createRouter({
       children: [
         {
           path: 'Buys',
+          name: 'Buys',
           component: () => import('@/views/User/Buys.vue'),
         },
         {
           path: 'MyInfo',
+          name: 'MyInfo',
           component: () => import('@/views/User/MyInfo.vue'),
         },
         {
           path: 'Address',
+          name: 'Address',
           component: () => import('@/views/User/Address.vue'),
         },
         {
           path: 'Upload',
+          name: 'Upload',
           component: () => import('@/views/User/Upload.vue'),
         },
       ]

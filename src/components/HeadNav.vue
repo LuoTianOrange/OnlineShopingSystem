@@ -40,7 +40,7 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>
-              <router-link to="/UserInfo" class="w-[100%]">
+              <router-link to="/UserInfo/MyInfo" class="w-[100%]">
                 个人信息
               </router-link>
             </el-dropdown-item>
@@ -49,8 +49,8 @@
                 购物车
               </router-link>
             </el-dropdown-item>
-            <el-dropdown-item style="color: tomato;" @click="Loginout">
-              <router-link to="/" class="w-[100%]" @click="Gotop">
+            <el-dropdown-item @click="Loginout">
+              <router-link to="/" class="w-[100%]" @click="Gotop" style="color: tomato;">
                 退出登录
               </router-link>
             </el-dropdown-item>

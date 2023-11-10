@@ -17,7 +17,6 @@
                 </div>
                 <div class="pt-[15px] flex" v-if="CurrentImage.images && CurrentImage.images.length > 1">
                     <!--图片-->
-                    <!-- commit：每次页面渲染时都会调用一次getNewIndex() -->
                     <img v-for="i in CurrentImage.images" :key="i.Imgid" :src="i.Url" alt=""
                         :style="{ 'border-color': i.Imgid === currentImgId ? '#000' : 'rgb(255,255,255,0)' }"
                         class="w-[120px] h-[120px] object-cover mr-[10px] border-box" @click="changeImg(i.Url, i.Imgid)">
@@ -37,11 +36,11 @@
                     </select>
                     <span class="mb-[5px]">个数</span>
                     <div class="flex flex-row w-full">
-                        <input type="text" v-model="buynumber" id="" class="select-box w-[15%]"
+                        <input type="number" v-model.number="buynumber" id="" class="select-box w-[15%]"
                             style="border-radius: 0 !important;">
                         <div class="w-[22px] h-[44px] bg-white">
-                            <button class="fff w-[22px] h-[22px] plus" @click="addNumber()">+</button>
-                            <button class="fff w-[22px] h-[22px] sub" @click="subNumber()">-</button>
+                            <button class="fff w-[22px] h-[22px] plus" @click="addNumber()" id="add">+</button>
+                            <button class="fff w-[22px] h-[22px] sub" @click="subNumber()" id="sub">-</button>
                         </div>
                     </div>
                     <button id="btn1" class="select-box w-[100%] mt-[30px] joincar" @click="OpenSearchBox">添加购物车</button>
@@ -49,7 +48,7 @@
                 </div>
                 <div class="describe">
                     <div v-for="i in CurrentImage.desc" :key="i.no" class="mb-[40px]">
-                        <span v-for="(text, index) in i.text.split('\n')" :key="index" >{{ text }}<br></span>
+                        <span v-for="(text, index) in i.text.split('\n')" :key="index">{{ text }}<br></span>
                     </div>
                 </div>
             </div>
@@ -135,12 +134,15 @@ export default {
             return this.buynumber++
         },
         subNumber() {
-            var i = this.buynumber - 1;
-            if (i < 0) {
-                i = 0
+            return this.buynumber--
+        },
+        //检测输入框是否小于0
+        checkNumber() {
+            if (this.buynumber < 1) {
+                this.buynumber = 1;
+                alert("数量不能小于0")
+                return this.buynumber
             }
-            this.buynumber = i;
-            return this.buynumber
         },
         resetBuynumber() {
             this.buynumber = 1;
@@ -159,7 +161,7 @@ export default {
         return this.buynumber = 1;
     },
     setup() {
-        const buynumber = ref(0);
+        const buynumber = ref(1);
         const freezeBuyNumber = ref(0);
         const SearchBoxRef = ref(null);
         const OpenSearchBox = () => {
@@ -172,6 +174,12 @@ export default {
             buynumber,
             freezeBuyNumber,
             OpenSearchBox,
+        }
+    },
+    watch: {
+        buynumber: {
+            handler: "checkNumber",
+            immediate: true
         }
     }
 

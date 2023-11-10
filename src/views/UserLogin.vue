@@ -19,11 +19,11 @@
                     </div>
                     <div class="w-full flex justify-center flex-row items-center my-[10px]">
                         <span class="m-[10px]">账号</span>
-                        <input class="select-box w-[80%]" type="text" placeholder="请输入账号" v-model="account">
+                        <input class="select-box w-[80%]" type="text" placeholder="请输入UID/用户名" v-model="account">
                     </div>
                     <div class="w-full flex justify-center flex-row items-center relative">
                         <span class="m-[10px]">密码</span>
-                        
+
                         <input class="select-box w-[80%]" :type="btnType" placeholder="请输入密码" v-model="password">
                         <!--密码显隐-->
                         <!-- <el-icon class="right-[40px]" style="position: absolute!important;" @click="changeBtnType1"
@@ -38,7 +38,7 @@
                     </div>
                     <div class="w-full flex justify-end flex-row items-center my-[20px]">
                         <button class="blackbutton loginbtn regbtn" @click="setOpenReg">注册</button>
-                        <button class="blackbutton loginbtn" @click="VerifyLogin(account,password)">登录</button>
+                        <button class="blackbutton loginbtn" @click="VerifyLogin(account, password)">登录</button>
                     </div>
                 </div>
                 <!--右侧密码注册-->
@@ -76,10 +76,10 @@ import { ref } from 'vue'
 import BackGround from '../components/BackGround.vue'
 
 export default {
-    props:{
-        OpenReg:{
-            type:Boolean,
-            default:false
+    props: {
+        OpenReg: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -119,32 +119,39 @@ export default {
             this.OpenReg = !this.OpenReg
         },
         //密码验证
-        VerifyLogin(account,password){
-            if(account == 123 && password == 123){
+        VerifyLogin(account, password) {
+            if (account == 123 && password == 123) {
                 this.$router.push('/')
                 this.isLogin = true
             }
-            else if(account == '' || password == '' || password == undefined || account == undefined){
+            else if (account == '' || password == '' || password == undefined || account == undefined) {
                 alert('账号或密码不能为空')
             }
-            else{
+            else {
                 alert("账号或密码错误");
-                console.log(account,password);
+                console.log(account, password);
             }
         }
     },
+    beforeDestroy() {
+        //清空账号和密码输入框
+        this.account = ''
+        this.password = ''
+    }
 }
 </script>
 
 <style scoped>
-@media screen and (width < 768px){
-    .left-QRcode{
+@media screen and (width < 768px) {
+    .left-QRcode {
         display: none;
     }
-    .right-pwd{
+
+    .right-pwd {
         padding: 40px;
     }
-    .reg-main{
+
+    .reg-main {
         padding: 0;
         margin-top: 40px;
     }
@@ -202,7 +209,7 @@ export default {
     color: #5c5c5c;
     font-weight: bold;
 }
-.bluetext{
+
+.bluetext {
     color: #66ccff
-}
-</style>
+}</style>
