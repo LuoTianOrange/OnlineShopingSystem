@@ -1,16 +1,18 @@
 <template>
   <div class="main-body fff">
       <div class="main-box mt-[60px] mx-[40px]">
+        <!--左侧菜单-->
         <div class="left">
             <span class="menu-box-header border-left-top">个人中心</span>
-            <div class="menu-box" v-for="i in leftmenu" :key="i.no"
+            <router-link :to="i.router"  class="menu-box" v-for="i in leftmenu" :key="i.no"
             :style="{'background-color': i.no == Ino?'#475669':null,
             'color': i.no == Ino?'#fff':null}"
-            @click="changeboxNo(i.no,i.router)"
-            >{{ i.name }}</div>
+            @click="changeboxNo(i.no)"
+            >{{ i.name }}</router-link>
         </div>
+        <!--右侧展示-->
         <div class="right">
-          <router-view name="Buys"></router-view><!--路由不渲染-->
+          <router-view></router-view>
         </div>
       </div>
   </div>
@@ -21,17 +23,20 @@ export default {
   data(){
     return{
       leftmenu:[
-        {name:'我的信息',no:1,router:'/UserInfo'},
-        {name:'我的购物车',no:2,router:'/Cart'},
-        {name:'购买的商品',no:3,router:'/UserInfo/Buys'},
+        {name:'我的信息',no:1,router:'/UserInfo/MyInfo'},
+        {name:'修改头像',no:2,router:'/UserInfo/Upload'},
+        {name:'收货地址',no:3,router:'/UserInfo/Address'},
+        {name:'我的购物车',no:4,router:'/Cart'},
+        {name:'购买的商品',no:5,router:'/UserInfo/Buys'},
       ],
       Ino:1,
     }
   },
   methods:{
-    changeboxNo(no,router){
+    changeboxNo(no){
+      console.log(this.$router);
       this.Ino = no;
-      this.$router.push(router)
+      // this.$router.push(router)
     }
 
   }
@@ -61,7 +66,6 @@ export default {
     background-color: #fafafa;
   }
   .right{
-    max-width: 75%;
     width: 100%;
     min-height: 100%;
   }

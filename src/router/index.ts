@@ -53,7 +53,19 @@ const router = createRouter({
         {
           path: 'Buys',
           component: () => import('@/views/User/Buys.vue'),
-        }
+        },
+        {
+          path: 'MyInfo',
+          component: () => import('@/views/User/MyInfo.vue'),
+        },
+        {
+          path: 'Address',
+          component: () => import('@/views/User/Address.vue'),
+        },
+        {
+          path: 'Upload',
+          component: () => import('@/views/User/Upload.vue'),
+        },
       ]
     },
     // {

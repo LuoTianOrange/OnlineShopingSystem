@@ -4,11 +4,12 @@
     <!--头图-->
     <img src="https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/topPC_1728x.png?v=1639728371" class="photo-1">
     <div class="w-full overflow-hidden">
+      <!--滚动展示-->
       <el-carousel trigger="click" height="650px">
-        <el-carousel-item v-for="i in image.slice(0, 4)" :key="i.no" class="flex justify-center relative">
+        <el-carousel-item v-for="i in image.slice(0, 4)" :key="i.no" :data-index="index" class="flex justify-center relative">
           <img :src="i.image" class="w-full min-h-[1200px] h-auto object-cover object-center relative top-[-50%]">
           <div class="button-container">
-            <button class="blackbutton box-text">{{ i.name }}</button>
+            <button class="blackbutton box-text" @click="gotogoodsinfo(i, index)">{{ i.name }}</button>
           </div>
         </el-carousel-item>
       </el-carousel>
@@ -50,7 +51,7 @@ export default {
       img1: 0,
       img12: 6,
       img2: 6,
-      img22: 9999999,
+      img22: 21,
     }
   },
   components: {
@@ -61,7 +62,17 @@ export default {
     gotoGoodClass(){
       this.$router.push('/GoodsClass')
       window.scrollTo(0,0)
-    }
+    },
+    //调整商品页面并且回到顶部
+    gotogoodsinfo(img, item_index) {
+            this.$router.push(`/goodsinfo/${img.name}`)
+            //修改页面标题
+            document.title = `${img.name} - nanyano Online Store`
+            // this.$store.commit( 'setId' ,(image))
+            // commit：设置点击的商品的索引到state中
+            this.$store.commit( 'setItemIndex' ,(item_index))
+            window.scrollTo(0,0)
+        },
   },
 }
 </script>

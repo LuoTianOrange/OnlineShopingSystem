@@ -45,11 +45,15 @@
               </router-link>
             </el-dropdown-item>
             <el-dropdown-item>
-              <router-link to="/Cart" class="w-[100%]">
+              <router-link to="/Cart" class="w-[100%]" @click="Gotop">
                 购物车
               </router-link>
             </el-dropdown-item>
-            <el-dropdown-item style="color: tomato;" @click="Loginout">退出登录</el-dropdown-item>
+            <el-dropdown-item style="color: tomato;" @click="Loginout">
+              <router-link to="/" class="w-[100%]" @click="Gotop">
+                退出登录
+              </router-link>
+            </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -79,6 +83,9 @@ export default {
     },
     Loginout() {
       this.isLogin = false
+    },
+    Gotop(){
+      window.scrollTo(0,0)
     }
   },
   setup() {

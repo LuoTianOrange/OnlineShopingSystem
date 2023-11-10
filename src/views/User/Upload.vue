@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h2 class="text-[2rem]">购买的商品</h2>
-  </div>
+  <div></div>
 </template>
 
 <script>
