@@ -1,4 +1,7 @@
 <template>
+    <div class="mt-[20px] mx-[30px]">
+        <span class="plainText font-[1.6rem!important]">我的信息</span>
+    </div>
     <div class="flex flex-col justify-start px-[20px]">
         <!--头像-->
         <div class="infobox flex items-center mt-[40px]">
@@ -7,7 +10,7 @@
                 <div @mouseenter="changeHeadon" @mouseleave="changeHeadoff" class="relative user-header">
                     <img src="https://album.biliimg.com/bfs/new_dyn/d3c594ffb826c533506ce49ebda4721b32256434.png"
                         class="user-header">
-                    <div v-if="isCover == true" class="replace-avatar">修改头像</div>
+                    <div v-if="isCover == true" class="replace-avatar" @click="gotoUpload">修改头像</div>
                 </div>
             </div>
         </div>
@@ -50,7 +53,7 @@ export default {
     name: 'myinfo',
     setup() {
         return {
-            username, radio, isCover,uid
+            username, radio, isCover, uid
         }
     },
     methods: {
@@ -60,7 +63,10 @@ export default {
         },
         changeHeadoff() {
             isCover.value = false
-        }
+        },
+        gotoUpload() {
+            this.$router.push('Upload')
+        },
     }
 }
 
@@ -89,7 +95,8 @@ export default {
     overflow: hidden;
     border-radius: 50%;
 }
-.replace-avatar{
+
+.replace-avatar {
     width: 100px;
     height: 40px;
     position: absolute;
