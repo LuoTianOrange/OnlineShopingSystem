@@ -15,23 +15,27 @@
     <div>
       <div id="good1" v-show="goods == '1'">
         <div class="goodhead">
-          <div>商品</div>
-          <div>单价</div>
-          <div>数量</div>
-          <div>总价</div>
-          <div>交易状态</div>
+          <div class="w-[360px] text-center">商品</div>
+          <div class="w-[150px] text-center">单价</div>
+          <div class="w-[150px] text-center">数量</div>
+          <div class="w-[150px] text-center">总价</div>
+          <div class="w-[250px] text-center">交易状态</div>
         </div>
         <div v-for="i in goodsList" :key="i.no" class="goodbox">
-          <div>{{ i.time }}</div>
+          <div class="flex">
+            <div>{{ i.time }}</div>
+            <div>{{ i.cartnum }}</div>
+          </div>
           <div class="goodbody">
             <img :src="i.images" class="w-[100px] h-[100px]" />
-            <div>
+            <div class="w-[260px]">
               <div>{{ i.name }}</div>
               <div>{{ i.size }}</div>
             </div>
-            <div>{{ i.amout }}</div>
-            <div>{{ i.price }}</div>
-            <div>{{ i.buynumber }}</div>
+            <div class="w-[150px]">{{ i.amout }}</div>
+            <div class="w-[150px]">{{ i.price }}</div>
+            <div class="w-[150px]">{{ i.buynumber }}</div>
+            <div class="w-[250px]">{{ i.state }}</div>
           </div>
         </div>
       </div>
@@ -42,16 +46,20 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 const activeIndex = ref('1')
-const goods = ref('')
+const goods = ref('1')
 const handleSelect = (key, keyPath) => {
   goods.value = key;
-  console.log(key, keyPath)
+  // console.log(key, keyPath)
 }
+const mo = onMounted(() => {
+  activeIndex.value = '1'
+})
 const goodsList = [
   {
     no: 1,
+    cartnum: '123456789012',
     name: '商品1',
     images: "https://nanyanostore.com/cdn/shop/files/f36dcd5983ab749dd2c99a54eb52b694_1024x1024_2x_9498ee9b-2cb0-4025-ad8d-bbd5bf9f8d9d_1024x1024@2x.jpg?v=1697440341",
     url: '',
@@ -60,6 +68,7 @@ const goodsList = [
     amout: 1,
     buynumber: 1,
     time: '2022-01-01',
+    state: '1'
   },
 ]
 </script>
@@ -87,9 +96,9 @@ const goodsList = [
 
 .goodbody {
   display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
 }
 </style>

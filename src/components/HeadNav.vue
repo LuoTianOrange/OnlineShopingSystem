@@ -1,4 +1,5 @@
 <template>
+  <!--顶部导航栏-->
   <div class="header">
     <router-link to="/" @click="changeTitle">
       <img src="../assets/photo/03_180x.webp" style="width: 130px;height: auto;">

@@ -1,4 +1,5 @@
 <template>
+  <!--背景组件-->
   <div class="w-full min-h-screen fixed z-[-1]" style="background-color: #f8f8f8;"></div>
 </template>
 

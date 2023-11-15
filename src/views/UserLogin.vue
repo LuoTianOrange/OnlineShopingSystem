@@ -19,7 +19,7 @@
                     </div>
                     <div class="w-full flex justify-center flex-row items-center my-[10px]">
                         <span class="m-[10px]">账号</span>
-                        <input class="select-box w-[80%]" type="text" placeholder="请输入UID/用户名" v-model="account">
+                        <input class="select-box w-[80%]" type="text" placeholder="请输入用户名" v-model="account">
                     </div>
                     <div class="w-full flex justify-center flex-row items-center relative">
                         <span class="m-[10px]">密码</span>

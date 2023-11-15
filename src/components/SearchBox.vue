@@ -1,4 +1,5 @@
 <template>
+    <!--顶部搜索框-->
     <transition name="search-box-body-transition">
         <div class="search-main" v-show="!isBoxClose">
             <!--黑色背景-->

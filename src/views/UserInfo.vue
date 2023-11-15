@@ -51,7 +51,7 @@ export default {
 }
 
 .main-box {
-  max-width: 1000px;
+  max-width: 1200px;
   width: 100%;
   min-height: 800px;
   display: flex;

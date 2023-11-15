@@ -4,7 +4,7 @@
     <!--头图-->
     <img src="https://cdn.shopifycdn.net/s/files/1/0608/1973/4744/files/topPC_1728x.png?v=1639728371" class="photo-1">
     <div class="w-full overflow-hidden">
-      <!--滚动展示-->
+      <!--轮播图-->
       <el-carousel trigger="click" height="650px">
         <el-carousel-item v-for="i in image.slice(0, 4)" :key="i.no" class="flex justify-center relative">
           <img :src="i.image" class="w-full min-h-[1200px] h-auto object-cover object-center relative top-[-50%]">
