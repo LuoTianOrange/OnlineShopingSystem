@@ -37,7 +37,6 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
-let timer = null
 
 export default {
     emits: ["isBoxClose"],

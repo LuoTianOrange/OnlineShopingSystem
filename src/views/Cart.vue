@@ -11,7 +11,7 @@
             <th class="w-[20%] text-right disshow">数量</th>
             <th class="w-[10%] text-right">总计</th>
           </tr>
-          <tr class="flex justify-between bbl2" v-for="i in image.slice(0, 3)" :key="i.no">
+          <tr class="flex justify-between bbl2" v-for="i in cart" :key="i.cartnum">
             <th class="w-[50%] text-left flex">
               <img class="cart-img mr-[50px]" v-for="url in imageUrls" :key="url" :src="url" alt="">
               <img class="cart-img mr-[50px]"
@@ -58,13 +58,13 @@
 <script>
 
 export default {
-  // goods: this.$store.state.Cartcount,
   data() {
     return {
       images: this.$store.state.image.images,
       image: this.$store.state.image,
       totalNumber: 0,
-      buynumber:1,
+      buynumber:this.$store.state.buynumber,
+      cart: this.$store.state.cart,
     }
   },
   computed: {
@@ -85,6 +85,9 @@ export default {
       this.buynumber = i;
       return this.buynumber
     },
+    commitBuynumber(){
+      this.$store.commit('setbuynumber')
+    }
   }
 }
 </script>

@@ -84,6 +84,7 @@ export default {
     },
     data() {
         return {
+            isLogin: this.$store.state.isLogin,
         }
     },
     setup(props) {
@@ -122,7 +123,9 @@ export default {
         VerifyLogin(account, password) {
             if (account == 123 && password == 123) {
                 this.$router.push('/')
-                this.isLogin = true
+                console.log(this.isLogin);
+                this.$store.commit('Login',true)
+                console.log(this.isLogin);
             }
             else if (account == '' || password == '' || password == undefined || account == undefined) {
                 alert('账号或密码不能为空')

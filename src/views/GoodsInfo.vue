@@ -43,7 +43,7 @@
                             <button class="fff w-[22px] h-[22px] sub" @click="subNumber()" id="sub">-</button>
                         </div>
                     </div>
-                    <button id="btn1" class="select-box w-[100%] mt-[30px] joincar" @click="OpenSearchBox">添加购物车</button>
+                    <button id="btn1" class="select-box w-[100%] mt-[30px] joincar" @click="commitCart">添加购物车</button>
                     <button class="payment w-[100%] mt-[10px]">使用支付宝结算</button>
                 </div>
                 <div class="describe">
@@ -66,6 +66,7 @@ import AddSCPBox from "@/components/AddSCPBox.vue";
 import { ref } from 'vue';
 import Cart from './Cart.vue';
 import throttle from 'lodash/throttle';
+import { useStore } from 'vuex'
 
 const handleMouseMoveFn = throttle(function (e, ew, eh, cursorMask) {
     let moveX = parseInt((900 - ew) * (e.offsetX / ew))
@@ -77,6 +78,7 @@ export default {
     data() {
         return {
             image: this.$store.state.image,
+            isLogin: this.$store.state.isLogin,
             BigUrl: null,
             currentImgId: 1,
             cursorMask: {
@@ -156,6 +158,21 @@ export default {
             this.currentImgId = id
             this.BigUrl = Url;
         },
+        commitBuynumber() {
+            this.$store.commit('setbuynumber')
+        },
+        commitCart() {
+            if(this.isLogin == true){
+                this.$store.commit('setCart')
+                SearchBoxRef.value = true
+            }
+            else if(this.isLogin == false){
+
+                this.$router.push('/userlogin')
+            }else{
+                alert("发生错误")
+            }
+        }
     },
     destroyed() {
         return this.buynumber = 1;
@@ -164,16 +181,17 @@ export default {
         const buynumber = ref(1);
         const freezeBuyNumber = ref(0);
         const SearchBoxRef = ref(null);
-        const OpenSearchBox = () => {
-            freezeBuyNumber.value += buynumber.value;
-            SearchBoxRef.value.OpenSearchBox()
-        }
+        // const OpenSearchBox = () => {
+        //     freezeBuyNumber.value += buynumber.value;
+        //     SearchBoxRef.value.OpenSearchBox()
+
+        // }
 
         return {
             SearchBoxRef,
             buynumber,
-            freezeBuyNumber,
-            OpenSearchBox,
+            // freezeBuyNumber,
+            // OpenSearchBox,
         }
     },
     watch: {

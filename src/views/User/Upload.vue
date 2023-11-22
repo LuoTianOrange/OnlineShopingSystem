@@ -4,7 +4,7 @@
   </div>
   <div class="flex flex-col justify-start px-[20px]">
     <!--修改头像-->
-    <div class="botton-infobox flex flex-col items-start justify-center mt-[40px] mx-[40px]">
+    <div class="botton-infobox flex flex-col items-start justify-center mt-[40px] mx-[40px] w-[auto!important]">
       <div>
         <button class="blackbutton w-[120px]">上传图片</button>
       </div>

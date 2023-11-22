@@ -23,7 +23,7 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>
-              <router-link to="/UserLogin" @click="isLogin = true">
+              <router-link to="/UserLogin">
                 登录
               </router-link>
             </el-dropdown-item>
@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       //是否登录
-      isLogin: false,
+      isLogin: this.$store.state.isLogin,
     }
   },
   components: {
@@ -83,7 +83,7 @@ export default {
       document.title = `nanyano OnlineStore - nanyano Online Store`
     },
     Loginout() {
-      this.isLogin = false
+      this.$store.commit('Login',false)
     },
     Gotop(){
       window.scrollTo(0,0)
@@ -100,6 +100,9 @@ export default {
       SearchBoxRef,
       OpenSearchBox,
     }
+  },
+  computed:{
+    
   }
 
 }
