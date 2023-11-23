@@ -11,12 +11,15 @@
             <th class="w-[20%] text-right disshow">数量</th>
             <th class="w-[10%] text-right">总计</th>
           </tr>
-          <tr class="flex justify-between bbl2" v-for="i in cart" :key="i.cartnum">
+          <div class="flex justify-between " v-if="cart.length == 0">
+            <div class="w-full h-[350px] flex flex-col items-center justify-center">
+              <span class="cart-text1">购物车为空</span>
+            </div>
+          </div>
+          <tr class="flex justify-between bbl2" v-for="i in cart" :key="i.no">
             <th class="w-[50%] text-left flex">
               <img class="cart-img mr-[50px]" v-for="url in imageUrls" :key="url" :src="url" alt="">
-              <img class="cart-img mr-[50px]"
-                src="https://nanyanostore.com/cdn/shop/files/f36dcd5983ab749dd2c99a54eb52b694_1024x1024_2x_9498ee9b-2cb0-4025-ad8d-bbd5bf9f8d9d_1024x1024@2x.jpg?v=1697440341"
-                alt="">
+              <img class="cart-img mr-[50px]" :src="i.images[0].Url" alt="">
               <span class="text-[1.2rem] flex flex-col">
                 <span>{{ i.name }}</span>
                 <span class="bbl w-fit">移除</span>
@@ -25,7 +28,7 @@
             <th class="w-[20%] text-right disshow">{{ i.price }}</th>
             <th class="w-[20%] text-right flex flex-row justify-end">
               <div class="w-[20%] text-right show">{{ i.price }}</div>
-              <input type="text" v-model="buynumber" id="" class="select-box w-[30%]"
+              <input type="text" v-model="i.buynumber" id="" class="select-box w-[30%]"
                 style="border-radius: 0 !important;">
               <div class="w-[22px] h-[44px] bg-white">
                 <button class="fff w-[22px] h-[22px] plus" @click="addNumber()">+</button>
@@ -63,7 +66,7 @@ export default {
       images: this.$store.state.image.images,
       image: this.$store.state.image,
       totalNumber: 0,
-      buynumber:this.$store.state.buynumber,
+      buynumber: 1,
       cart: this.$store.state.cart,
     }
   },
@@ -71,6 +74,11 @@ export default {
     imageUrls() {
       return this.$store.state.image.images && this.$store.state.image.images.map(image => image.Url);
     },
+    //计算小计
+    getTotalNumber() {
+      //拿到Cart里面每个商品的buynumber和price
+      return
+    }
 
   },
   methods: {
@@ -85,8 +93,13 @@ export default {
       this.buynumber = i;
       return this.buynumber
     },
-    commitBuynumber(){
-      this.$store.commit('setbuynumber')
+    //更改商品数量
+    // commitBuynumber() {
+    //   this.$store.commit('setbuynumber')
+    // },
+    //移除商品
+    removeGoods(index) {
+      this.$store.commit('removeGoods', index)
     }
   }
 }

@@ -16,10 +16,9 @@ const store = createStore({
         ...cart,
       ],
       //
-      Cartcount: [],
       itemIndex: 0,
       //购买商品数量
-      buynumber: 1,
+      // buynumber: 1,
       //搜索框数据
       searchKeyword: '',
       //是否登录
@@ -38,9 +37,9 @@ const store = createStore({
       state.itemIndex = index
     },
     //添加商品数量
-    setbuynumber(state, number) {
-      state.buynumber += number
-    },
+    // setbuynumber(state, number) {
+    //   state.buynumber += number
+    // },
     addCommodity(state, no, count) {
       let hasItem = state.Cartcount.some(item => {
         if (item.no === no) {
@@ -57,12 +56,12 @@ const store = createStore({
         })
       }
     },
-    //购物车数据
-    Cartcount(state, n) {
-      state.Cartcount.push(n)
-    },
+
     //添加商品到购物车
     addCart(state, goods) {
+      if(goods ?? state.goods.no){
+
+      }
       console.log(goods);
       state.cart.push(goods)
     },
@@ -75,7 +74,7 @@ const store = createStore({
     },
   },
   actions: {
-
+    //更改登录状态
     InLogin(state,step) {
       state.commit('Login', step)
     },

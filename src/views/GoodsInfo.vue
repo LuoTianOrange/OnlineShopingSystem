@@ -83,6 +83,10 @@ export default {
                 display: "none",
                 transform: "translate(0px, 0px)",
             },
+            GoodsInfomation: {
+                ...this.CurrentImage,
+                buynumber: this.buynumber,
+            },
             magnifier: {
                 top: 0,
                 left: 0,
@@ -161,6 +165,7 @@ export default {
         commitBuynumber() {
             this.$store.commit('setbuynumber')
         },
+        //推送商品到Cart数组
         commitCart() {
             if (this.isLogin == true) {
                 this.freezeBuyNumber += this.buynumber;
