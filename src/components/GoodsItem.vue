@@ -37,7 +37,7 @@ export default {
             // commit：设置点击的商品的索引到state中
             this.$store.commit( 'setItemIndex' ,(item_index))
             console.log(img);
-            console.log(this.$store.state.itemIndex);
+            // console.log(this.$store.state.itemIndex);
         },
     },
     computed: { 

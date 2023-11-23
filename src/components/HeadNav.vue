@@ -72,7 +72,6 @@ export default {
   data() {
     return {
       //是否登录
-      isLogin: this.$store.state.isLogin,
     }
   },
   components: {
@@ -102,9 +101,8 @@ export default {
     }
   },
   computed:{
-    
+    isLogin() { return this.$store.state.isLogin },
   }
-
 }
 </script>
 

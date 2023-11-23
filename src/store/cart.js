@@ -1,6 +1,6 @@
 export default[
     {
-        cartnum: '',
+        cartnum: '1',
         name: "NACHONEKO抱き枕カバー",
     },
 ]

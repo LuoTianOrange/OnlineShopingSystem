@@ -67,7 +67,6 @@ import { ref } from 'vue';
 import Cart from './Cart.vue';
 import throttle from 'lodash/throttle';
 import { useStore } from 'vuex'
-
 const handleMouseMoveFn = throttle(function (e, ew, eh, cursorMask) {
     let moveX = parseInt((900 - ew) * (e.offsetX / ew))
     let moveY = parseInt((900 - eh) * (e.offsetY / eh))
@@ -78,7 +77,6 @@ export default {
     data() {
         return {
             image: this.$store.state.image,
-            isLogin: this.$store.state.isLogin,
             BigUrl: null,
             currentImgId: 1,
             cursorMask: {
@@ -103,6 +101,8 @@ export default {
         CurrentImage() {
             return this.$store.state.image[this.$store.state.itemIndex ?? 0];
         },
+        isLogin() { return this.$store.state.isLogin },
+        image() { return this.$store.state.image },
     },
     created() {
         let currentItemIndex = 0
@@ -127,7 +127,7 @@ export default {
         seeBegin() {
             this.isShow = 1;
             this.cursorMask.display = "block";
-            console.log("isShow = " + this.isShow);
+            // console.log("isShow = " + this.isShow);
             let element = document.getElementById("commodityImg")
             let ew = element.offsetWidth, eh = element.offsetHeight;
             element.onmousemove = (e) => handleMouseMoveFn(e, ew, eh, this.cursorMask)
@@ -162,17 +162,19 @@ export default {
             this.$store.commit('setbuynumber')
         },
         commitCart() {
-            if(this.isLogin == true){
-                this.$store.commit('setCart')
-                SearchBoxRef.value = true
+            if (this.isLogin == true) {
+                this.freezeBuyNumber += this.buynumber;
+                this.$store.commit('addCart', this.CurrentImage)
+                this.$refs.SearchBoxRef.OpenSearchBox()
             }
-            else if(this.isLogin == false){
+            else if (this.isLogin == false) {
 
                 this.$router.push('/userlogin')
-            }else{
+            } else {
                 alert("发生错误")
             }
-        }
+        },
+
     },
     destroyed() {
         return this.buynumber = 1;
@@ -181,17 +183,16 @@ export default {
         const buynumber = ref(1);
         const freezeBuyNumber = ref(0);
         const SearchBoxRef = ref(null);
-        // const OpenSearchBox = () => {
-        //     freezeBuyNumber.value += buynumber.value;
-        //     SearchBoxRef.value.OpenSearchBox()
-
-        // }
+        const OpenSearchBox = () => {
+            freezeBuyNumber.value += buynumber.value;
+            SearchBoxRef.value.OpenSearchBox()
+        }
 
         return {
-            SearchBoxRef,
             buynumber,
-            // freezeBuyNumber,
-            // OpenSearchBox,
+            SearchBoxRef,
+            freezeBuyNumber,
+            OpenSearchBox,
         }
     },
     watch: {

@@ -62,8 +62,9 @@ const store = createStore({
       state.Cartcount.push(n)
     },
     //添加商品到购物车
-    addCart(state, good) {
-      state.cart.push(good)
+    addCart(state, goods) {
+      console.log(goods);
+      state.cart.push(goods)
     },
     setSearchKeyword(state, keyword) {
       state.searchKeyword = keyword
@@ -74,6 +75,10 @@ const store = createStore({
     },
   },
   actions: {
+
+    InLogin(state,step) {
+      state.commit('Login', step)
+    },
     //获取商品信息
     getGoods() {
       axios.get('/')

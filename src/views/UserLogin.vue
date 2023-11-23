@@ -119,13 +119,11 @@ export default {
         setOpenReg() {
             this.OpenReg = !this.OpenReg
         },
-        //密码验证
+        //密码验证,修改账号登录状态s
         VerifyLogin(account, password) {
             if (account == 123 && password == 123) {
+                this.Login(true);
                 this.$router.push('/')
-                console.log(this.isLogin);
-                this.$store.commit('Login',true)
-                console.log(this.isLogin);
             }
             else if (account == '' || password == '' || password == undefined || account == undefined) {
                 alert('账号或密码不能为空')
@@ -134,7 +132,10 @@ export default {
                 alert("账号或密码错误");
                 console.log(account, password);
             }
-        }
+        },
+        Login(step) {
+            this.$store.dispatch('InLogin',step)
+        },
     },
     beforeDestroy() {
         //清空账号和密码输入框
@@ -215,4 +216,5 @@ export default {
 
 .bluetext {
     color: #66ccff
-}</style>
+}
+</style>
