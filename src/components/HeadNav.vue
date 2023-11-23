@@ -80,6 +80,7 @@ export default {
   methods: {
     changeTitle() {
       document.title = `nanyano OnlineStore - nanyano Online Store`
+      window.scrollTo(0,0)
     },
     Loginout() {
       this.$store.commit('Login',false)

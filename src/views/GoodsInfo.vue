@@ -83,10 +83,6 @@ export default {
                 display: "none",
                 transform: "translate(0px, 0px)",
             },
-            GoodsInfomation: {
-                ...this.CurrentImage,
-                buynumber: this.buynumber,
-            },
             magnifier: {
                 top: 0,
                 left: 0,
@@ -169,7 +165,7 @@ export default {
         commitCart() {
             if (this.isLogin == true) {
                 this.freezeBuyNumber += this.buynumber;
-                this.$store.commit('addCart', this.CurrentImage)
+                this.$store.commit('addCart', { goods: this.CurrentImage, count: this.freezeBuyNumber })
                 this.$refs.SearchBoxRef.OpenSearchBox()
             }
             else if (this.isLogin == false) {

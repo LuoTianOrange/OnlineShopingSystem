@@ -36,6 +36,7 @@ export default {
             // this.$store.commit( 'setId' ,(image))
             // commit：设置点击的商品的索引到state中
             this.$store.commit( 'setItemIndex' ,(item_index))
+            window.scrollTo(0,0)
             console.log(img);
             // console.log(this.$store.state.itemIndex);
         },

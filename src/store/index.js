@@ -23,6 +23,7 @@ const store = createStore({
       searchKeyword: '',
       //是否登录
       isLogin: false,
+      Cartcount: [],
     }
   },
   getters:
@@ -58,24 +59,31 @@ const store = createStore({
     },
 
     //添加商品到购物车
-    addCart(state, goods) {
-      if(goods ?? state.goods.no){
-
+    addCart(state, buyinfo) {
+      //判断匹配购物车里是否存在相同商品
+      const goods = buyinfo
+      if (goods ?? state.goods.no) {
+        //定位相同商品,添加商品数量
+        // goods.count += state.goods.count
+        console.log(goods);
+        console.log(buyinfo);
+        //提交修改
+        state.cart.push(goods)
+      } else {
+        //没有相同商品添加完整商品
+        console.log(goods);
+        console.log(buyinfo);
+        state.cart.push(goods)
       }
-      console.log(goods);
-      state.cart.push(goods)
-    },
-    setSearchKeyword(state, keyword) {
-      state.searchKeyword = keyword
     },
     //登录状态
-    Login(state,step) {
+    Login(state, step) {
       state.isLogin = step
     },
   },
   actions: {
     //更改登录状态
-    InLogin(state,step) {
+    InLogin(state, step) {
       state.commit('Login', step)
     },
     //获取商品信息
