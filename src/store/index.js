@@ -60,20 +60,17 @@ const store = createStore({
 
     //添加商品到购物车
     addCart(state, buyinfo) {
-      //判断匹配购物车里是否存在相同商品
-      const goods = buyinfo
-      if (goods ?? state.goods.no) {
-        //定位相同商品,添加商品数量
-        // goods.count += state.goods.count
-        console.log(goods);
-        console.log(buyinfo);
-        //提交修改
-        state.cart.push(goods)
-      } else {
-        //没有相同商品添加完整商品
-        console.log(goods);
-        console.log(buyinfo);
-        state.cart.push(goods)
+      console.log(state.cart, buyinfo);
+      // 判断匹配购物车里是否存在相同商品
+      let hasItem = state.cart.some(item => {
+        if (item.goods.no === buyinfo.goods.no) {
+          item.goods.count += buyinfo.goods.count
+          return true
+        }
+      })
+      // 没有相同商品添加完整商品
+      if (!hasItem) {
+        state.cart.push(buyinfo)
       }
     },
     //登录状态

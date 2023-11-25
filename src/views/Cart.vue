@@ -16,19 +16,19 @@
               <span class="cart-text1">购物车为空</span>
             </div>
           </div>
-          <tr class="flex justify-between bbl2" v-for="i in cart" :key="i.no">
+          <tr class="flex justify-between bbl2" v-for="i in cart" :key="i.goods.no">
             <th class="w-[50%] text-left flex">
               <img class="cart-img mr-[50px]" v-for="url in imageUrls" :key="url" :src="url" alt="">
-              <img class="cart-img mr-[50px]" :src="i.images[0].Url" alt="">
+              <img class="cart-img mr-[50px]" :src="i.goods.image" alt="">
               <span class="text-[1.2rem] flex flex-col">
-                <span>{{ i.name }}</span>
+                <span>{{ i.goods.name }}</span>
                 <span class="bbl w-fit">移除</span>
               </span>
             </th>
-            <th class="w-[20%] text-right disshow">{{ i.price }}</th>
+            <th class="w-[20%] text-right disshow">{{ i.goods.price }}</th>
             <th class="w-[20%] text-right flex flex-row justify-end">
-              <div class="w-[20%] text-right show">{{ i.price }}</div>
-              <input type="text" v-model="i.buynumber" id="" class="select-box w-[30%]"
+              <div class="w-[20%] text-right show">{{ i.goods.price }}</div>
+              <input type="text" v-model="i.goods.buynumber" id="" class="select-box w-[30%]"
                 style="border-radius: 0 !important;">
               <div class="w-[22px] h-[44px] bg-white">
                 <button class="fff w-[22px] h-[22px] plus" @click="addNumber()">+</button>
@@ -67,7 +67,6 @@ export default {
       image: this.$store.state.image,
       totalNumber: 0,
       buynumber: 1,
-      cart: this.$store.state.cart,
     }
   },
   computed: {
@@ -78,8 +77,13 @@ export default {
     getTotalNumber() {
       //拿到Cart里面每个商品的buynumber和price
       return
+    },
+    cart() {
+      return this.$store.state.cart
     }
-
+  },
+  created() {
+    console.log(this.$store.state.cart);
   },
   methods: {
     addNumber() {
