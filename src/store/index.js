@@ -3,6 +3,7 @@ import { createStore } from 'vuex'
 import image from './image'
 import cart from './cart'
 import axios from 'axios'
+import userStore from './user'
 
 const store = createStore({
   state() {
@@ -124,6 +125,9 @@ const store = createStore({
           console.log(error);
         })
     },
+  },
+  modules: {
+    userStore
   }
 })
 
