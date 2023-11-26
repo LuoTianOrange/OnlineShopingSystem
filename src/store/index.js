@@ -73,6 +73,17 @@ const store = createStore({
         state.cart.push(buyinfo)
       }
     },
+    //删除购物车商品
+    delCart(state, buyinfo) {
+      let hasItem = state.cart.some(item => {
+        if (item.goods.no === buyinfo.goods.no) {
+          return true
+        }
+      })
+      if (!hasItem) {
+        state.cart.pop(buyinfo)
+      }
+    },
     //登录状态
     Login(state, step) {
       state.isLogin = step

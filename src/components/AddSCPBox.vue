@@ -24,8 +24,8 @@
                 </div>
             </div>
             <button class="select-box w-[100%] prom-watchcar" style="background: #f8f8f8;">
-                <router-link to="/Cart" class="w-[100%]">
-                    查看购物车({{ Cart.length }})
+                <router-link to="/cart" class="w-[100%]">
+                    查看购物车({{ cart.length }})
                 </router-link>
             </button>
             <div class="prom-box-foot plainText">
@@ -57,7 +57,7 @@ export default {
     data() {
         return {
             isBoxClose: true,
-            Cart:this.$store.state.cart,
+            cart:this.$store.state.cart,
         };
     },
     computed: {

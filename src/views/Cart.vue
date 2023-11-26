@@ -22,19 +22,22 @@
               <img class="cart-img mr-[50px]" :src="i.goods.image" alt="">
               <span class="text-[1.2rem] flex flex-col">
                 <span>{{ i.goods.name }}</span>
-                <span class="bbl w-fit">移除</span>
+                <span class="bbl w-fit cursor-pointer" @click="removeGoods(i.goods.no)">移除</span>
               </span>
             </th>
             <th class="w-[20%] text-right disshow">{{ i.goods.price }}</th>
             <th class="w-[20%] text-right flex flex-row justify-end">
               <div class="w-[20%] text-right show">{{ i.goods.price }}</div>
-              <input type="text" v-model="i.goods.buynumber" id="" class="select-box w-[30%]"
+              <input type="text" v-model="i.count" id="" class="select-box w-[30%]"
                 style="border-radius: 0 !important;">
               <div class="w-[22px] h-[44px] bg-white">
-                <button class="fff w-[22px] h-[22px] plus" @click="addNumber()">+</button>
-                <button class="fff w-[22px] h-[22px] sub" @click="subNumber()">-</button>
+                <button class="fff w-[22px] h-[22px] plus" 
+                @click="addNumber(i.count)" @change="getTotalNumber(i.count,i.goods.price)">+</button>
+                <button class="fff w-[22px] h-[22px] sub" 
+                @click="subNumber(i.count)" @change="getTotalNumber(i.count,i.goods.price)">-</button>
               </div>
             </th>
+            <!--总计-->
             <th class="w-[10%] text-right disshow">¥{{ totalNumber }}</th>
           </tr>
         </table>
@@ -86,16 +89,16 @@ export default {
     console.log(this.$store.state.cart);
   },
   methods: {
-    addNumber() {
-      return this.buynumber++
+    addNumber(count) {
+      return count++
     },
-    subNumber() {
-      var i = this.buynumber - 1;
+    subNumber(count) {
+      var i = count - 1;
       if (i < 0) {
         i = 0
       }
-      this.buynumber = i;
-      return this.buynumber
+      count = i;
+      return count
     },
     //更改商品数量
     // commitBuynumber() {
@@ -103,7 +106,7 @@ export default {
     // },
     //移除商品
     removeGoods(index) {
-      this.$store.commit('removeGoods', index)
+      this.$store.commit('delCart', index)
     }
   }
 }
