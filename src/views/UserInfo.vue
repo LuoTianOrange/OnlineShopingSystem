@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'UserInfo',
   data() {
@@ -39,6 +40,12 @@ export default {
   methods: {
     changeboxNo(no) {
       this.Ino = no
+    },
+    getUserInfo() {
+      axios.get('http://localhost:8080/user')
+        .then(() => {
+
+        })
     }
   },
 }

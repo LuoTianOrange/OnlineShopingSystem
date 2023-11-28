@@ -20,6 +20,7 @@ export default {
   created(){
     // 获取商品信息
     this.$store.dispatch('getGoods')
+    console.log('image:',this.$store.state.image);
   }
 }
 </script>

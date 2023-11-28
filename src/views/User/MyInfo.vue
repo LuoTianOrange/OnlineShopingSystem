@@ -49,6 +49,7 @@ const uid = ref('123456789')
 const username = ref('正中大橘猫')
 const radio = ref(1)
 const isCover = ref(false)
+import axios from 'axios'
 export default {
     name: 'myinfo',
     setup() {
@@ -67,6 +68,7 @@ export default {
         gotoUpload() {
             this.$router.push('Upload')
         },
+
     }
 }
 

@@ -24,7 +24,7 @@ const store = createStore({
       //搜索框数据
       searchKeyword: '',
       //是否登录
-      isLogin: false,
+      isLogin: !!localStorage.getItem("isLogin"),
       Cartcount: [],
     }
   },
@@ -41,7 +41,8 @@ const store = createStore({
     },
     //设置商品数据
     setGoods(state,response){
-      state.image.push(response)
+      // state.image.push(response)
+      state.image = [...response]
       console.log(response);
       console.log(state.image);
     },
@@ -62,7 +63,10 @@ const store = createStore({
         })
       }
     },
-
+    //设置搜索框内容
+    setSearchBox(state,n){
+      state.searchKeyword = n
+    },
     //添加商品到购物车
     addCart(state, buyinfo) {
       console.log(state.cart, buyinfo);
@@ -97,6 +101,7 @@ const store = createStore({
   actions: {
     //更改登录状态
     InLogin(state, step) {
+      localStorage.setItem("isLogin", (step))
       state.commit('Login', step)
     },
     //获取商品信息

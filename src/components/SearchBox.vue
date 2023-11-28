@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { mapState, mapMutations } from 'vuex'
 export default {
     emits: ["isBoxClose"],
@@ -53,10 +54,15 @@ export default {
         OpenSearchBox() {
             this.isBoxClose = false;
         },
-        setSearchkey(searchKeyword){
-            this.$store.commit("searchKeyword",this.searchKeyword);
-        },
-        ...mapMutations(['updateSearchKeyword'])
+        ...mapMutations(['updateSearchKeyword']),
+        SearchGoods(){
+            axios.get(`http://localhost:8080/goods/getName?name=${this.searchKeyword}`)
+            .then((response)=>{
+                console.log(response.data);
+                this.$store.commit('setSearchBox',this.searchKeyword)
+                this.$router.push('/SearchInfo')
+            })
+        }
     },
     computed: {
    ...mapState(['searchKeyword'])

@@ -1,14 +1,16 @@
 <template>
     <!--单货物展示盒子-->
-    <div v-for="(i, index) in curImgs" :key="index"  class="photo-item font-1"
-        :style="{ width: itemw + 'px' }" @click="gotogoodsinfo(i, index)">
-        <img :src="i.images?.[0].Url ?? i.image" :alt=i.alt>
+    <div v-for="(i, id) in curImages" :key="id"  class="photo-item font-1"
+        :style="{ width: itemw + 'px' }" @click="gotogoodsinfo(i, id)">
+        <img :src="i.images" :alt=i.alt>
         <span class="font-1">{{ i.name }}</span>
         <span class="font-2">¥{{ i.price }}</span>
     </div>
 </template>
 
 <script>
+import { watch } from 'vue'
+
 export default {
     props: {
         image: {
@@ -28,9 +30,14 @@ export default {
             required: true,
         }
     },
+    data() {
+        return {
+            curImages: [],
+        }
+    },
     methods: {
         gotogoodsinfo(img, item_index) {
-            this.$router.push(`/goodsinfo/${img.name}`)
+            this.$router.push(`/goodsinfo/${img.id}`)
             //修改页面标题
             document.title = `${img.name} - nanyano Online Store`
             // this.$store.commit( 'setId' ,(image))
@@ -41,10 +48,19 @@ export default {
         },
     },
     computed: { 
-        curImgs() {
-            console.log("curImgs",this.image);
-            return this.image[0].slice(this.img1, this.img2)
+        curImages() {
+            return this.image.slice(this.img1, this.img2)
         }
+    },
+    updated() {
+    },
+    created() {
+        // watch(this.image, () => {
+        //     this.curImages = this.image.slice(this.img1, this.img2)
+        // });
+        // setTimeout(() => {
+
+        // }, 2000)
     }
 }
 </script>

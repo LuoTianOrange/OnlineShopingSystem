@@ -74,7 +74,7 @@
 import { useQRCode } from '@vueuse/integrations/useQRCode'
 import { ref } from 'vue'
 import BackGround from '../components/BackGround.vue'
-
+import axios from 'axios'
 export default {
     props: {
         OpenReg: {
@@ -121,20 +121,38 @@ export default {
         },
         //密码验证,修改账号登录状态s
         VerifyLogin(account, password) {
-            if (account == 123 && password == 123) {
-                this.Login(true);
-                this.$router.push('/')
-            }
-            else if (account == '' || password == '' || password == undefined || account == undefined) {
-                alert('账号或密码不能为空')
-            }
-            else {
-                alert("账号或密码错误");
-                console.log(account, password);
-            }
+            axios.get(`http://localhost:8080/user/login?username=${account}&password=${password}`)
+                .then(({ data: response }) => {
+                    // store.commit('setGoods', response.data)
+                    console.log(response);
+                    if (response == "登录成功") {
+                        this.Login(true);
+                        this.$router.push('/')
+                    }
+                    else if (account == '' || password == '' || password == undefined || account == undefined) {
+                        alert('账号或密码不能为空')
+                    }
+                    else {
+                        alert(response)
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            // if (account == 123 && password == 123) {
+            // this.Login(true);
+            // this.$router.push('/')
+            // }
+            // else if (account == '' || password == '' || password == undefined || account == undefined) {
+            //     alert('账号或密码不能为空')
+            // }
+            // else {
+            //     alert("账号或密码错误");
+            //     console.log(account, password);
+            // }
         },
         Login(step) {
-            this.$store.dispatch('InLogin',step)
+            this.$store.dispatch('InLogin', step)
         },
     },
     beforeDestroy() {

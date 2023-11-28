@@ -16,7 +16,7 @@
               <span class="cart-text1">购物车为空</span>
             </div>
           </div>
-          <tr class="flex justify-between bbl2" v-for="i in cart" :key="i.goods.no">
+          <tr class="flex justify-between bbl2" v-for="i in cart" :key="i.goods.id">
             <th class="w-[50%] text-left flex">
               <img class="cart-img mr-[50px]" v-for="url in imageUrls" :key="url" :src="url" alt="">
               <img class="cart-img mr-[50px]" :src="i.goods.image" alt="">
@@ -79,7 +79,6 @@ export default {
     //计算小计
     getTotalNumber() {
       //拿到Cart里面每个商品的buynumber和price
-      return
     },
     cart() {
       return this.$store.state.cart

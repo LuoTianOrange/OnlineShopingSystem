@@ -32,7 +32,7 @@ export default {
     },
     data() {
         return {
-            skw: this.$store.state.searchKey,
+            skw: this.$store.state.searchKeyword,
             image: this.$store.state.image,
             hover: false,
             itemw1: 360,

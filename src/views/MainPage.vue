@@ -6,8 +6,8 @@
     <div class="w-full overflow-hidden">
       <!--轮播图-->
       <el-carousel trigger="click" height="650px">
-        <el-carousel-item v-for="i in image.slice(0, 4)" :key="i.no" class="flex justify-center relative">
-          <img :src="i.image" class="w-full min-h-[1200px] h-auto object-cover object-center relative top-[-50%]">
+        <el-carousel-item v-for="i in image.slice(0, 4)" :key="i.id" class="flex justify-center relative">
+          <img :src="i.images" class="w-full min-h-[1200px] h-auto object-cover object-center relative top-[-50%]">
           <div class="button-container">
             <button class="blackbutton box-text" @click="gotogoodsinfo(i, index)">{{ i.name }}</button>
           </div>
@@ -44,14 +44,13 @@ import GoodsItem from '../components/GoodsItem.vue'
 export default {
   data() {
     return {
-      image: this.$store.state.image,
       hover: false,
       itemw1: 360,
       itemw2: 200,
       img1: 0,
       img12: 6,
       img2: 6,
-      img22: 21,
+      img22: 16,
     }
   },
   components: {
@@ -63,22 +62,24 @@ export default {
       this.$router.push('/GoodsClass')
       window.scrollTo(0, 0)
     },
+
+  },
+  computed: {
+    image() {
+      return this.$store.state.image;
+    },
     //调整商品页面并且回到顶部
     gotogoodsinfo(img, item_index) {
       this.$router.push(`/goodsinfo/${img.name}`)
       //修改页面标题
       document.title = `${img.name} - nanyano Online Store`
       // this.$store.commit( 'setId' ,(image))
-      // commit：设置点击的商品的索引到state中
       this.$store.commit('setItemIndex', (item_index))
       window.scrollTo(0, 0)
     },
   },
-  created() {
-    // 获取商品信息
-    this.$store.dispatch('getGoods')
-    console.log('getGoods');
-    console.log('image:',this.image);
+  watch: {
+
   }
 }
 </script>

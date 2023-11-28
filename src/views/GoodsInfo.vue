@@ -7,31 +7,32 @@
                 <!--当前查看商品图区域-->
                 <div id="imgPre" class="relative overflow-hidden" @mouseleave="seeEnd">
                     <div ref="imgPre">
-                        <img :src="BigUrl ?? CurrentImage.images[0].Url" alt="商品图片" class="w-[452px]">
+                        <img :src="BigUrl ?? CurrentImage.images" alt="商品图片" class="w-[452px]">
                     </div>
                     <div class="topMask" id="commodityImg" @mouseenter="seeBegin" @mousemove="move"></div>
                     <!--鼠标放大镜模块-->
                     <div ref="move" v-show="isShow" class="move" :style="cursorMask">
-                        <img :src="BigUrl ?? CurrentImage.images[0].Url" alt="商品图片" class="w-full">
+                        <img :src="BigUrl ?? CurrentImage.images" alt="商品图片" class="w-full">
                     </div>
                 </div>
                 <div class="pt-[15px] flex" v-if="CurrentImage.images && CurrentImage.images.length > 1">
                     <!--图片-->
-                    <img v-for="i in CurrentImage.images" :key="i.Imgid" :src="i.Url" alt=""
-                        :style="{ 'border-color': i.Imgid === currentImgId ? '#000' : 'rgb(255,255,255,0)' }"
-                        class="w-[120px] h-[120px] object-cover mr-[10px] border-box" @click="changeImg(i.Url, i.Imgid)">
+                    <img v-for="i in CurrentImage.images.split(',')" :key="i" :src="i" alt=""
+                        :style="{ 'border-color': i === BigUrl ? '#000' : 'rgb(255,255,255,0)' }"
+                        class="w-[120px] h-[120px] object-cover mr-[10px] border-box" @click="changeImg(i)">
                 </div>
             </div>
             <!--商品信息-->
             <div class="max-w-[550px] w-full pl-[40px] infobox">
                 <span class="goodname">{{ CurrentImage.name }}</span>
                 <span class="goodprice">¥{{ CurrentImage.price }}</span>
+                <span class="goodamount">库存：{{ CurrentImage.amount }}</span>
                 <div class="infobox w-full pt-[50px]">
                     <span class="mb-[5px]" v-if="CurrentImage.size && CurrentImage.size.length > 0">尺寸</span>
                     <select name="size" id="size" class="select-box w-[50%] mb-[5px]"
                         v-if="CurrentImage.size && CurrentImage.size.length > 0">
-                        <option v-for="a in CurrentImage.size" :value="a.Option" :key="a.No">
-                            {{ a.Option }}
+                        <option v-for="a in CurrentImage.size.split(',')" :value="a" :key="a">
+                            {{ a }}
                         </option>
                     </select>
                     <span class="mb-[5px]">个数</span>
@@ -47,15 +48,15 @@
                     <button class="payment w-[100%] mt-[10px]">使用支付宝结算</button>
                 </div>
                 <div class="describe">
-                    <div v-for="i in CurrentImage.desc" :key="i.no" class="mb-[40px]">
-                        <span v-for="(text, index) in i.text.split('\n')" :key="index">{{ text }}<br></span>
+                    <div v-for="i in CurrentImage.describes.split(',')" :key="i.index" class="mb-[40px]">
+                        <span >{{ i }}<br></span>
                     </div>
                 </div>
             </div>
         </div>
         <!--添加购物车提示框-->
         <AddSCPBox ref="SearchBoxRef" :buynumber="freezeBuyNumber" :name="CurrentImage.name"
-            :photo="CurrentImage?.images?.[0].Url ?? ''"></AddSCPBox>
+            :photo="CurrentImage?.images"></AddSCPBox>
         <!--随机显示商品-->
         <div></div>
     </div>
@@ -67,6 +68,7 @@ import { ref } from 'vue';
 import Cart from './Cart.vue';
 import throttle from 'lodash/throttle';
 import { useStore } from 'vuex'
+import axios from 'axios'
 const handleMouseMoveFn = throttle(function (e, ew, eh, cursorMask) {
     let moveX = parseInt((900 - ew) * (e.offsetX / ew))
     let moveY = parseInt((900 - eh) * (e.offsetY / eh))
@@ -76,8 +78,9 @@ const handleMouseMoveFn = throttle(function (e, ew, eh, cursorMask) {
 export default {
     data() {
         return {
+            CurrentImage: {...{}},
             image: this.$store.state.image,
-            BigUrl: null,
+            BigUrl: null, 
             currentImgId: 1,
             cursorMask: {
                 display: "none",
@@ -98,21 +101,25 @@ export default {
         AddSCPBox, Cart
     },
     computed: {
-        CurrentImage() {
-            return this.$store.state.image[this.$store.state.itemIndex ?? 0];
-        },
         isLogin() { return this.$store.state.isLogin },
         image() { return this.$store.state.image },
     },
     created() {
-        let currentItemIndex = 0
-        this.$store.state.image.some((v, i) => {
-            if (v.name == this.$route.params.no) {
-                currentItemIndex = i
-                return true
-            }
-        })
-        this.$store.commit("setItemIndex", currentItemIndex)
+        // let currentItemIndex = 0
+        // this.$store.state.image.some((v, i) => {
+        //     if (v.name == this.$route.params.no) {
+        //         currentItemIndex = i
+        //         return true
+        //     }
+        // })
+        // this.$store.commit("setItemIndex", currentItemIndex)
+        // console.log('CurrentImage.images:',CurrentImage.images);
+        const id = this.$route.params.no;
+        axios.get(`http://localhost:8080/goods/getById?goodId=${id}`)
+            .then((response) => {
+                console.log(response.data);
+                this.CurrentImage = response.data;
+            })
     },
     methods: {
         seeEnd() {
@@ -154,8 +161,7 @@ export default {
                 document.getElementById("btn1").disabled = true;
             }
         },
-        changeImg(Url, id) {
-            this.currentImgId = id
+        changeImg(Url) {
             this.BigUrl = Url;
         },
         commitBuynumber() {
@@ -281,6 +287,11 @@ select {
     font-size: 1.4rem;
     color: #5c5c5c;
     font-weight: bold;
+}
+
+.goodamount {
+    font-size: 1rem;
+    color: #5c5c5c;
 }
 
 .payment {
