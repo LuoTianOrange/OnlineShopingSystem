@@ -1,6 +1,6 @@
 <template>
     <!--单货物展示盒子-->
-    <div v-for="(i, index) in curImgs" :key="index" :data-index="index" class="photo-item font-1"
+    <div v-for="(i, index) in curImgs" :key="index"  class="photo-item font-1"
         :style="{ width: itemw + 'px' }" @click="gotogoodsinfo(i, index)">
         <img :src="i.images?.[0].Url ?? i.image" :alt=i.alt>
         <span class="font-1">{{ i.name }}</span>
@@ -38,12 +38,12 @@ export default {
             this.$store.commit( 'setItemIndex' ,(item_index))
             window.scrollTo(0,0)
             console.log(img);
-            // console.log(this.$store.state.itemIndex);
         },
     },
     computed: { 
         curImgs() {
-            return this.image.slice(this.img1, this.img2)
+            console.log("curImgs",this.image);
+            return this.image[0].slice(this.img1, this.img2)
         }
     }
 }

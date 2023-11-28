@@ -17,7 +17,10 @@ import BackGround from './components/BackGround.vue'
 import HeadNav from './components/HeadNav.vue'
 export default {
   components: { HeadNav, BackGround, FootNav },
-
+  created(){
+    // 获取商品信息
+    this.$store.dispatch('getGoods')
+  }
 }
 </script>
 

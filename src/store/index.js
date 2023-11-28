@@ -8,8 +8,9 @@ const store = createStore({
   state() {
     return {
       //商品数据
-      image: [
-        ...image,
+      image: 
+      [
+        // ...image,
       ],
       //购物车数据
       cart: [
@@ -37,10 +38,13 @@ const store = createStore({
       // commit：将传来的值赋给itemIndex
       state.itemIndex = index
     },
-    //添加商品数量
-    // setbuynumber(state, number) {
-    //   state.buynumber += number
-    // },
+    //设置商品数据
+    setGoods(state,response){
+      state.image.push(response)
+      console.log(response);
+      console.log(state.image);
+    },
+
     addCommodity(state, no, count) {
       let hasItem = state.Cartcount.some(item => {
         if (item.no === no) {
@@ -96,13 +100,15 @@ const store = createStore({
     },
     //获取商品信息
     getGoods() {
-      axios.get('/')
-        .then(function (response) {
-
+      axios.get('http://localhost:8080/goods/getAll')
+        .then((response)=> {
+          store.commit('setGoods', response.data)
+          console.log(response.data);
         })
         .catch(function (error) {
           console.log(error);
         })
+        console.log(store);
     },
     //获取用户信息
     getUserInfo() {

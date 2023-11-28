@@ -31,7 +31,7 @@
     </div>
     <!--查看更多商品按钮-->
     <div class="main-box">
-        <button class="blackbutton" @click="gotoGoodClass()">查看全部</button>
+      <button class="blackbutton" @click="gotoGoodClass()">查看全部</button>
     </div>
     <!--底图-->
     <img src="https://nanyanostore.com/cdn/shop/files/tunagiPC_1296x.png?v=1639728452" class="photo-1 py-[60px]"
@@ -59,21 +59,27 @@ export default {
   },
   methods: {
     //跳转GoodClass并且回到顶部
-    gotoGoodClass(){
+    gotoGoodClass() {
       this.$router.push('/GoodsClass')
-      window.scrollTo(0,0)
+      window.scrollTo(0, 0)
     },
     //调整商品页面并且回到顶部
     gotogoodsinfo(img, item_index) {
-            this.$router.push(`/goodsinfo/${img.name}`)
-            //修改页面标题
-            document.title = `${img.name} - nanyano Online Store`
-            // this.$store.commit( 'setId' ,(image))
-            // commit：设置点击的商品的索引到state中
-            this.$store.commit( 'setItemIndex' ,(item_index))
-            window.scrollTo(0,0)
-        },
+      this.$router.push(`/goodsinfo/${img.name}`)
+      //修改页面标题
+      document.title = `${img.name} - nanyano Online Store`
+      // this.$store.commit( 'setId' ,(image))
+      // commit：设置点击的商品的索引到state中
+      this.$store.commit('setItemIndex', (item_index))
+      window.scrollTo(0, 0)
+    },
   },
+  created() {
+    // 获取商品信息
+    this.$store.dispatch('getGoods')
+    console.log('getGoods');
+    console.log('image:',this.image);
+  }
 }
 </script>
 
