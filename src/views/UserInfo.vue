@@ -41,12 +41,7 @@ export default {
     changeboxNo(no) {
       this.Ino = no
     },
-    getUserInfo() {
-      axios.get('http://localhost:8080/user')
-        .then(() => {
-
-        })
-    }
+    //
   },
 }
 </script>

@@ -9,23 +9,24 @@ const store = createStore({
   state() {
     return {
       //商品数据
-      image: 
-      [
-        // ...image,
-      ],
+      image:
+        [
+          // ...image,
+        ],
       //购物车数据
       cart: [
         ...cart,
       ],
       //
       itemIndex: 0,
-      //购买商品数量
-      // buynumber: 1,
       //搜索框数据
       searchKeyword: '',
+      //搜索内容
+      searchgoods:[],
       //是否登录
       isLogin: !!localStorage.getItem("isLogin"),
       Cartcount: [],
+      address: [],
     }
   },
   getters:
@@ -40,7 +41,7 @@ const store = createStore({
       state.itemIndex = index
     },
     //设置商品数据
-    setGoods(state,response){
+    setGoods(state, response) {
       // state.image.push(response)
       state.image = [...response]
       console.log(response);
@@ -64,7 +65,7 @@ const store = createStore({
       }
     },
     //设置搜索框内容
-    setSearchBox(state,n){
+    setSearchBox(state, n) {
       state.searchKeyword = n
     },
     //添加商品到购物车
@@ -84,19 +85,26 @@ const store = createStore({
     },
     //删除购物车商品
     delCart(state, buyinfo) {
-      let hasItem = state.cart.some(item => {
-        if (item.goods.no === buyinfo.goods.no) {
-          return true
-        }
+      axios.get(`/cart/deleteOne/${buyinfo.goods.consignmentnum}`)
+      .then(()=>{
+        
       })
-      if (!hasItem) {
-        state.cart.pop(buyinfo)
-      }
+      // let hasItem = state.cart.some(item => {
+      //   if (item.goods.no === buyinfo.goods.no) {
+      //     return true
+      //   }
+      // })
+      // if (!hasItem) {
+      //   state.cart.pop(buyinfo)
+      // }
     },
     //登录状态
     Login(state, step) {
       state.isLogin = step
     },
+    setAddress(state, address) {
+      state.address = address
+    }
   },
   actions: {
     //更改登录状态
@@ -106,15 +114,15 @@ const store = createStore({
     },
     //获取商品信息
     getGoods() {
-      axios.get('http://localhost:8080/goods/getAll')
-        .then((response)=> {
+      axios.get('/goods/getAll')
+        .then((response) => {
           store.commit('setGoods', response.data)
           console.log(response.data);
         })
         .catch(function (error) {
           console.log(error);
         })
-        console.log(store);
+      console.log(store);
     },
     //获取用户信息
     getUserInfo() {
@@ -136,6 +144,21 @@ const store = createStore({
           console.log(error);
         })
     },
+    //退出登录
+    Loginout() {
+      store.commit('Login', false)
+      axios.get('/user/loginOut')
+        .then((response) => {
+          alert("成功退出登录！")
+        })
+    },
+    //获取用户地址
+    getAddress() {
+      axios.get('/user/getAddress')
+        .then((response) => {
+          store.commit('setAddress', response.data)
+        })
+    }
   },
   modules: {
     userStore

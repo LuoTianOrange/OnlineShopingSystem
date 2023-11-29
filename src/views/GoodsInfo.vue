@@ -9,7 +9,7 @@
                     <div ref="imgPre">
                         <img :src="BigUrl ?? CurrentImage.images" alt="商品图片" class="w-[452px]">
                     </div>
-                    <div class="topMask" id="commodityImg" @mouseenter="seeBegin" @mousemove="move"></div>
+                    <div class="topMask" id="commodityImg" @mouseenter="seeBegin"></div>
                     <!--鼠标放大镜模块-->
                     <div ref="move" v-show="isShow" class="move" :style="cursorMask">
                         <img :src="BigUrl ?? CurrentImage.images" alt="商品图片" class="w-full">
@@ -78,6 +78,7 @@ const handleMouseMoveFn = throttle(function (e, ew, eh, cursorMask) {
 export default {
     data() {
         return {
+            isShow: 0,
             CurrentImage: {...{}},
             image: this.$store.state.image,
             BigUrl: null, 
@@ -175,7 +176,6 @@ export default {
                 this.$refs.SearchBoxRef.OpenSearchBox()
             }
             else if (this.isLogin == false) {
-
                 this.$router.push('/userlogin')
             } else {
                 alert("发生错误")

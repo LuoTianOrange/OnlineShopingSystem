@@ -48,114 +48,17 @@ export default {
   name: 'Address',
   data() {
     return {
-      tableData: [
-        {
-          name: '正中大橘猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '小橘猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '猫猫猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '大橘猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '橘猫猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '猫猫猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '大橘猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '橘猫猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '猫猫猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '大橘猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '大橘猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '大橘猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '大橘猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '大橘猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-        {
-          name: '大橘猫',
-          region: '地球',
-          address: '橘橘猫咖',
-          postalcode: '12345',
-          phone: '123456789',
-        },
-      ],
+      tableData: [],
     }
+  },
+  methods: {
+    //获取地址
+    // getAddress() {
+    //   this.$store.dispatch('getAddress')
+    // }
+  },
+  created: {
+
   }
 }
 </script>

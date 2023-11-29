@@ -36,6 +36,14 @@
                 </el-radio-group>
             </div>
         </div>
+        <!--修改密码-->
+        <div class="infobox flex items-start flex-col justify-center">
+            <div class="flex items-center">
+                <div class="mx-[20px] my-[10px] plainText">修改密码</div>
+                <input class="select-box ml-[20px]" type="text" v-model="newpwd" placeholder="输入新的密码" />
+                <input class="select-box ml-[20px]" type="text" v-model="renewpwd" placeholder="再次输入密码" />
+            </div>
+        </div>
         <!--保存按钮-->
         <div class="botton-infobox flex items-center flex-col justify-center">
             <button class="blackbutton w-[120px]">保存</button>
@@ -44,17 +52,24 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-const uid = ref('123456789')
-const username = ref('正中大橘猫')
-const radio = ref(1)
+import { computed, ref } from 'vue'
+
 const isCover = ref(false)
+const newpwd = ref('')
+const renewpwd = ref('')
+const myinfo = ref({
+    uid: '',
+    username: '',
+    //因为数据库没有字段这个默认设置为1
+    radio: 1,
+
+})
 import axios from 'axios'
 export default {
     name: 'myinfo',
     setup() {
         return {
-            username, radio, isCover, uid
+            isCover, myinfo, newpwd, renewpwd
         }
     },
     methods: {
@@ -68,7 +83,20 @@ export default {
         gotoUpload() {
             this.$router.push('Upload')
         },
-
+    },
+    mounted() {
+        axios.get(`/user/getUserByUid`)
+            .then((response) => {
+                console.log(response.data);
+                // this.$set(this.myinfo,'uid',response.data.uid)
+                // this.$set(this.myinfo,'username',response.data.username)
+                this.myinfo.uid = response.data.uid
+                this.myinfo.username = response.data.username
+                console.log(myinfo.value);
+            })
+    },
+    computed:{
+        
     }
 }
 

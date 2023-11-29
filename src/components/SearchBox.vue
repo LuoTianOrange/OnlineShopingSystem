@@ -9,11 +9,11 @@
                     <div class="head-search">
                         <input class="head-search-input head-search-text1" type="text" title="1" placeholder="搜索商品"
                             v-model="searchKeyword">
-                        <router-link to="/SearchInfo" @click="CloseSearchBox">
+                        <router-link to="/SearchInfo" @click="CloseSearchBox" >
                             <svg width="25" height="25" viewBox="0 0 48 48" fill="none" class="mx-[20px]">
                                 <path
                                     d="M33.07 33.071c6.25-6.248 6.25-16.379 0-22.627-6.248-6.249-16.378-6.249-22.627 0-6.248 6.248-6.248 16.379 0 22.627 6.249 6.248 16.38 6.248 22.628 0zm0 0l8.486 8.485"
-                                    stroke="#162950" stroke-width="4" />
+                                    stroke="#162950" stroke-width="4" @click="SearchGoods"/>
                             </svg>
                         </router-link>
                     </div>
@@ -54,12 +54,12 @@ export default {
         OpenSearchBox() {
             this.isBoxClose = false;
         },
-        ...mapMutations(['updateSearchKeyword']),
         SearchGoods(){
-            axios.get(`http://localhost:8080/goods/getName?name=${this.searchKeyword}`)
+            console.log('SearchGoods');
+            axios.get(`/goods/getName?name=${this.searchKeyword}`)
             .then((response)=>{
                 console.log(response.data);
-                this.$store.commit('setSearchBox',this.searchKeyword)
+                this.$store.commit('setSearchBox',response.data)
                 this.$router.push('/SearchInfo')
             })
         }

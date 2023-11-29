@@ -49,20 +49,21 @@
                     </div>
                     <div class="w-full flex flex-row items-center justify-end my-[10px]">
                         <span class="m-[10px]">用户名</span>
-                        <input class="select-box w-[80%]" type="text" placeholder="请输入用户名">
+                        <input class="select-box w-[80%]" type="text" placeholder="请输入用户名" v-model="user.username">
                     </div>
                     <div class="w-full flex mb-[10px] flex-row items-center justify-end relative">
                         <span class="m-[10px]">密码</span>
                         <!--密码显隐-->
-                        <input class="select-box w-[80%]" type="text" placeholder="请输入密码">
+                        <input class="select-box w-[80%]" type="text" placeholder="请输入密码" v-model="user.password">
                     </div>
                     <div class="w-full flex flex-row items-center justify-end relative">
                         <span class="m-[10px]">验证密码</span>
                         <!--密码显隐-->
-                        <input class="select-box w-[80%]" type="text" placeholder="请再次输入密码">
+                        <input class="select-box w-[80%]" type="text" placeholder="请再次输入密码" v-model="user.verpassword">
                     </div>
                     <div class="w-full flex justify-end flex-row items-center my-[20px]">
-                        <button class="blackbutton w-[80%]">注册</button>
+                        <button class="blackbutton w-[80%]"
+                            @click="commitReg(user.username, user.password, user.verpassword)">注册</button>
                     </div>
                 </div>
             </div>
@@ -75,6 +76,7 @@ import { useQRCode } from '@vueuse/integrations/useQRCode'
 import { ref } from 'vue'
 import BackGround from '../components/BackGround.vue'
 import axios from 'axios'
+import { method } from 'lodash'
 export default {
     props: {
         OpenReg: {
@@ -96,6 +98,11 @@ export default {
         const qrcode = useQRCode(text, {
             errorCorrectionLevel: 'H',
         })
+        const user = ref({
+            username: '',
+            password: '',
+            verpassword: '',
+        })
         return {
             text,
             qrcode,
@@ -103,6 +110,7 @@ export default {
             OpenReg,
             password,
             account,
+            user,
         }
     },
     compnent: {
@@ -119,9 +127,36 @@ export default {
         setOpenReg() {
             this.OpenReg = !this.OpenReg
         },
-        //密码验证,修改账号登录状态s
+        //用户提交注册
+        commitReg(username, password, verpassword) {
+            console.log(username, password, verpassword);
+            const payload = {
+                username, password
+            };
+            console.log(payload);
+            payload.data = JSON.stringify(payload.data)
+            if (password == verpassword) {
+                return axios({
+                    method: 'post',
+                    headers: {
+                        'Context-Type': 'application/json'
+                    },
+                    url: `user/register`,
+                    data: payload
+                })
+                    .then(response => {
+                        alert('注册成功');
+                    })
+                    .catch(error => {
+                        console.log('error', error);
+                    });
+            } else {
+                alert('注册失败')
+            }
+        },
+        //密码验证,修改账号登录状态
         VerifyLogin(account, password) {
-            axios.get(`http://localhost:8080/user/login?username=${account}&password=${password}`)
+            axios.get(`/user/login?username=${account}&password=${password}`)
                 .then(({ data: response }) => {
                     // store.commit('setGoods', response.data)
                     console.log(response);
@@ -139,17 +174,6 @@ export default {
                 .catch(function (error) {
                     console.log(error);
                 })
-            // if (account == 123 && password == 123) {
-            // this.Login(true);
-            // this.$router.push('/')
-            // }
-            // else if (account == '' || password == '' || password == undefined || account == undefined) {
-            //     alert('账号或密码不能为空')
-            // }
-            // else {
-            //     alert("账号或密码错误");
-            //     console.log(account, password);
-            // }
         },
         Login(step) {
             this.$store.dispatch('InLogin', step)

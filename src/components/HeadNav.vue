@@ -64,14 +64,13 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 import SearchBox from '@/components/SearchBox.vue';
 import { ref } from 'vue';
 
 export default {
   data() {
     return {
-      //是否登录
     }
   },
   components: {
@@ -83,7 +82,7 @@ export default {
       window.scrollTo(0,0)
     },
     Loginout() {
-      this.$store.commit('Login',false)
+      this.$store.dispatch('Loginout')
     },
     Gotop(){
       window.scrollTo(0,0)

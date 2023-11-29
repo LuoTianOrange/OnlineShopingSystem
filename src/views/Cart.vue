@@ -28,13 +28,12 @@
             <th class="w-[20%] text-right disshow">{{ i.goods.price }}</th>
             <th class="w-[20%] text-right flex flex-row justify-end">
               <div class="w-[20%] text-right show">{{ i.goods.price }}</div>
-              <input type="text" v-model="i.count" id="" class="select-box w-[30%]"
-                style="border-radius: 0 !important;">
+              <input type="text" v-model="i.count" id="" class="select-box w-[30%]" style="border-radius: 0 !important;">
               <div class="w-[22px] h-[44px] bg-white">
-                <button class="fff w-[22px] h-[22px] plus" 
-                @click="addNumber(i.count)" @change="getTotalNumber(i.count,i.goods.price)">+</button>
-                <button class="fff w-[22px] h-[22px] sub" 
-                @click="subNumber(i.count)" @change="getTotalNumber(i.count,i.goods.price)">-</button>
+                <button class="fff w-[22px] h-[22px] plus" @click="addNumber(i.count)"
+                  @change="getTotalNumber(i.count, i.goods.price)">+</button>
+                <button class="fff w-[22px] h-[22px] sub" @click="subNumber(i.count)"
+                  @change="getTotalNumber(i.count, i.goods.price)">-</button>
               </div>
             </th>
             <!--总计-->
@@ -49,19 +48,20 @@
         </div>
         <div class="cart-text1 pb-[10px] flex justify-end">
           <div>小计</div>
-          <div class="pl-[50px]">10000000RMB</div>
+          <div class="pl-[50px]">{{}}RMB</div>
         </div>
         <div class="cart-text1 pb-[10px] flex justify-end">
           <div>总计</div>
-          <div class="pl-[50px]">10000010RMB</div>
+          <div class="pl-[50px]">{{}}RMB</div>
         </div>
-        <button class="blackbutton">结账</button>
+        <button class="blackbutton" @click="Checkout">结账</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   data() {
@@ -78,7 +78,7 @@ export default {
     },
     //计算小计
     getTotalNumber() {
-      //拿到Cart里面每个商品的buynumber和price
+
     },
     cart() {
       return this.$store.state.cart
@@ -106,6 +106,29 @@ export default {
     //移除商品
     removeGoods(index) {
       this.$store.commit('delCart', index)
+    },
+    Checkout() {
+      const Cart = {
+        cartnum:'',
+        uid:'',
+        buynumber:'',
+        goodsno:''
+      }
+      Cart = JSON.stringify(Cart)
+      axios({
+        method: 'post',
+        headers: {
+          'Context-Type': 'application/json'
+        },
+        url: `cart/submit`,
+        data: Cart
+      })
+        .then(response => {
+          alert('提交成功');
+        })
+        .catch(error => {
+          console.log('error', error);
+        })
     }
   }
 }
