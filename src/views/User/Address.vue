@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: 'Address',
@@ -51,14 +52,13 @@ export default {
       tableData: [],
     }
   },
-  methods: {
-    //获取地址
-    // getAddress() {
-    //   this.$store.dispatch('getAddress')
-    // }
-  },
-  created: {
-
+  mounted(){
+    axios.get(`/ship/selectAllShip`)
+    .then((response)=>{
+      console.log(response.data)
+      this.tableData.push(response.data)
+      console.log(this.tableData);
+    })
   }
 }
 </script>
