@@ -116,6 +116,7 @@ export default {
   // .new-item-box {
   //   justify-content: center;
   // }
+  //
 }
 
 .demonstration {
