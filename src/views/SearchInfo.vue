@@ -32,8 +32,8 @@ export default {
     },
     data() {
         return {
-            skw: this.$store.state.searchKey,
-            image: this.$store.state.image,
+            skw: this.$store.state.searchKeyword,
+            goods: this.$store.state.searchgoods,
             hover: false,
             itemw1: 360,
             img1: 0,

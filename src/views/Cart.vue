@@ -11,27 +11,32 @@
             <th class="w-[20%] text-right disshow">数量</th>
             <th class="w-[10%] text-right">总计</th>
           </tr>
-          <tr class="flex justify-between bbl2" v-for="i in image.slice(0, 3)" :key="i.no">
+          <div class="flex justify-between " v-if="cart.length == 0">
+            <div class="w-full h-[350px] flex flex-col items-center justify-center">
+              <span class="cart-text1">购物车为空</span>
+            </div>
+          </div>
+          <tr class="flex justify-between bbl2" v-for="i in cart" :key="i.goods.id">
             <th class="w-[50%] text-left flex">
               <img class="cart-img mr-[50px]" v-for="url in imageUrls" :key="url" :src="url" alt="">
-              <img class="cart-img mr-[50px]"
-                src="https://nanyanostore.com/cdn/shop/files/f36dcd5983ab749dd2c99a54eb52b694_1024x1024_2x_9498ee9b-2cb0-4025-ad8d-bbd5bf9f8d9d_1024x1024@2x.jpg?v=1697440341"
-                alt="">
+              <img class="cart-img mr-[50px]" :src="i.goods.image" alt="">
               <span class="text-[1.2rem] flex flex-col">
-                <span>{{ i.name }}</span>
-                <span class="bbl w-fit">移除</span>
+                <span>{{ i.goods.name }}</span>
+                <span class="bbl w-fit cursor-pointer" @click="removeGoods(i.goods.no)">移除</span>
               </span>
             </th>
-            <th class="w-[20%] text-right disshow">{{ i.price }}</th>
+            <th class="w-[20%] text-right disshow">{{ i.goods.price }}</th>
             <th class="w-[20%] text-right flex flex-row justify-end">
-              <div class="w-[20%] text-right show">{{ i.price }}</div>
-              <input type="text" v-model="buynumber" id="" class="select-box w-[30%]"
-                style="border-radius: 0 !important;">
+              <div class="w-[20%] text-right show">{{ i.goods.price }}</div>
+              <input type="text" v-model="i.count" id="" class="select-box w-[30%]" style="border-radius: 0 !important;">
               <div class="w-[22px] h-[44px] bg-white">
-                <button class="fff w-[22px] h-[22px] plus" @click="addNumber()">+</button>
-                <button class="fff w-[22px] h-[22px] sub" @click="subNumber()">-</button>
+                <button class="fff w-[22px] h-[22px] plus" @click="addNumber(i.count)"
+                  @change="getTotalNumber(i.count, i.goods.price)">+</button>
+                <button class="fff w-[22px] h-[22px] sub" @click="subNumber(i.count)"
+                  @change="getTotalNumber(i.count, i.goods.price)">-</button>
               </div>
             </th>
+            <!--总计-->
             <th class="w-[10%] text-right disshow">¥{{ totalNumber }}</th>
           </tr>
         </table>
@@ -43,48 +48,88 @@
         </div>
         <div class="cart-text1 pb-[10px] flex justify-end">
           <div>小计</div>
-          <div class="pl-[50px]">10000000RMB</div>
+          <div class="pl-[50px]">{{}}RMB</div>
         </div>
         <div class="cart-text1 pb-[10px] flex justify-end">
           <div>总计</div>
-          <div class="pl-[50px]">10000010RMB</div>
+          <div class="pl-[50px]">{{}}RMB</div>
         </div>
-        <button class="blackbutton">结账</button>
+        <button class="blackbutton" @click="Checkout">结账</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
-  // goods: this.$store.state.Cartcount,
   data() {
     return {
       images: this.$store.state.image.images,
       image: this.$store.state.image,
       totalNumber: 0,
-      buynumber:1,
+      buynumber: 1,
     }
   },
   computed: {
     imageUrls() {
       return this.$store.state.image.images && this.$store.state.image.images.map(image => image.Url);
     },
+    //计算小计
+    getTotalNumber() {
 
+    },
+    cart() {
+      return this.$store.state.cart
+    }
+  },
+  created() {
+    console.log(this.$store.state.cart);
   },
   methods: {
-    addNumber() {
-      return this.buynumber++
+    addNumber(count) {
+      return count++
     },
-    subNumber() {
-      var i = this.buynumber - 1;
+    subNumber(count) {
+      var i = count - 1;
       if (i < 0) {
         i = 0
       }
-      this.buynumber = i;
-      return this.buynumber
+      count = i;
+      return count
     },
+    //更改商品数量
+    // commitBuynumber() {
+    //   this.$store.commit('setbuynumber')
+    // },
+    //移除商品
+    removeGoods(index) {
+      this.$store.commit('delCart', index)
+    },
+    Checkout() {
+      const Cart = {
+        cartnum:'',
+        uid:'',
+        buynumber:'',
+        goodsno:''
+      }
+      Cart = JSON.stringify(Cart)
+      axios({
+        method: 'post',
+        headers: {
+          'Context-Type': 'application/json'
+        },
+        url: `cart/submit`,
+        data: Cart
+      })
+        .then(response => {
+          alert('提交成功');
+        })
+        .catch(error => {
+          console.log('error', error);
+        })
+    }
   }
 }
 </script>

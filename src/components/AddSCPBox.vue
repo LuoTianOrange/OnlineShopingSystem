@@ -24,8 +24,8 @@
                 </div>
             </div>
             <button class="select-box w-[100%] prom-watchcar" style="background: #f8f8f8;">
-                <router-link to="/Cart" class="w-[100%]">
-                    查看购物车({{ this.Cartcount.length }})
+                <router-link to="/cart" class="w-[100%]">
+                    查看购物车({{ cart.length }})
                 </router-link>
             </button>
             <div class="prom-box-foot plainText">
@@ -37,7 +37,6 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
-let timer = null
 
 export default {
     emits: ["isBoxClose"],
@@ -58,6 +57,7 @@ export default {
     data() {
         return {
             isBoxClose: true,
+            cart:this.$store.state.cart,
         };
     },
     computed: {

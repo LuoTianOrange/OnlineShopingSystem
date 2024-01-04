@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'UserInfo',
   data() {
@@ -39,7 +40,8 @@ export default {
   methods: {
     changeboxNo(no) {
       this.Ino = no
-    }
+    },
+    //
   },
 }
 </script>

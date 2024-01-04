@@ -23,7 +23,7 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>
-              <router-link to="/UserLogin" @click="isLogin = true">
+              <router-link to="/UserLogin">
                 登录
               </router-link>
             </el-dropdown-item>
@@ -64,15 +64,13 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 import SearchBox from '@/components/SearchBox.vue';
 import { ref } from 'vue';
 
 export default {
   data() {
     return {
-      //是否登录
-      isLogin: false,
     }
   },
   components: {
@@ -81,9 +79,10 @@ export default {
   methods: {
     changeTitle() {
       document.title = `nanyano OnlineStore - nanyano Online Store`
+      window.scrollTo(0,0)
     },
     Loginout() {
-      this.isLogin = false
+      this.$store.dispatch('Loginout')
     },
     Gotop(){
       window.scrollTo(0,0)
@@ -100,8 +99,10 @@ export default {
       SearchBoxRef,
       OpenSearchBox,
     }
+  },
+  computed:{
+    isLogin() { return this.$store.state.isLogin },
   }
-
 }
 </script>
 

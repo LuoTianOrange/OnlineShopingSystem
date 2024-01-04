@@ -39,14 +39,65 @@
           </div>
         </div>
       </div>
-      <div id="good2" v-show="goods == '2'">2</div>
-      <div id="good3" v-show="goods == '3'">3</div>
+      <div id="good2" v-show="goods == '2'">
+        <div class="goodhead">
+          <div class="w-[360px] text-center">商品</div>
+          <div class="w-[150px] text-center">单价</div>
+          <div class="w-[150px] text-center">数量</div>
+          <div class="w-[150px] text-center">总价</div>
+          <div class="w-[250px] text-center">交易状态</div>
+        </div>
+        <div v-for="i in outgoodsList" :key="i.no" class="goodbox">
+          <div class="flex">
+            <div>{{ i.time }}</div>
+            <div>{{ i.cartnum }}</div>
+          </div>
+          <div class="goodbody">
+            <img :src="i.images" class="w-[100px] h-[100px]" />
+            <div class="w-[260px]">
+              <div>{{ i.name }}</div>
+              <div>{{ i.size }}</div>
+            </div>
+            <div class="w-[150px]">{{ i.amout }}</div>
+            <div class="w-[150px]">{{ i.price }}</div>
+            <div class="w-[150px]">{{ i.buynumber }}</div>
+            <div class="w-[250px]">{{ i.state }}</div>
+          </div>
+        </div>
+      </div>
+      <div id="good3" v-show="goods == '3'">
+        <div class="goodhead">
+          <div class="w-[360px] text-center">商品</div>
+          <div class="w-[150px] text-center">单价</div>
+          <div class="w-[150px] text-center">数量</div>
+          <div class="w-[150px] text-center">总价</div>
+          <div class="w-[250px] text-center">交易状态</div>
+        </div>
+        <div v-for="i in nogoodsList" :key="i.no" class="goodbox">
+          <div class="flex">
+            <div>{{ i.time }}</div>
+            <div>{{ i.cartnum }}</div>
+          </div>
+          <div class="goodbody">
+            <img :src="i.images" class="w-[100px] h-[100px]" />
+            <div class="w-[260px]">
+              <div>{{ i.name }}</div>
+              <div>{{ i.size }}</div>
+            </div>
+            <div class="w-[150px]">{{ i.amout }}</div>
+            <div class="w-[150px]">{{ i.price }}</div>
+            <div class="w-[150px]">{{ i.buynumber }}</div>
+            <div class="w-[250px]">{{ i.state }}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
-<script setup>
+<script setup lang="js">
 import { onMounted, ref } from 'vue'
+import axios from 'axios'
 const activeIndex = ref('1')
 const goods = ref('1')
 const handleSelect = (key, keyPath) => {
@@ -56,21 +107,36 @@ const handleSelect = (key, keyPath) => {
 const mo = onMounted(() => {
   activeIndex.value = '1'
 })
-const goodsList = [
-  {
-    no: 1,
-    cartnum: '123456789012',
-    name: '商品1',
-    images: "https://nanyanostore.com/cdn/shop/files/f36dcd5983ab749dd2c99a54eb52b694_1024x1024_2x_9498ee9b-2cb0-4025-ad8d-bbd5bf9f8d9d_1024x1024@2x.jpg?v=1697440341",
-    url: '',
-    price: 100,
-    size: 'L',
-    amout: 1,
-    buynumber: 1,
-    time: '2022-01-01',
-    state: '1'
-  },
-]
+
+
+//获取所有商品列表
+const goodsList = axios.get(`/order/all`)
+  .then((response) => {
+    console.log("goodsList", response.data);
+    return response.data
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+//获取已发货商品列表
+const outgoodsList = axios.get(`/order/out`)
+  .then((response) => {
+    console.log("outgoodsList", response.data);
+    return response.data
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+//获取未发货商品列表
+const nogoodsList = axios.get(`/order/out`)
+  .then((response) => {
+    console.log("nogoodsList", response.data);
+    return response.data
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+
 </script>
 
 <style scoped>
